@@ -1,0 +1,1240 @@
+\documentclass[11pt]{article}
+
+%% Packages
+\usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage[margin=3cm]{geometry}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{proof}
+\usepackage{mathabx}
+
+%% Pagestyle
+\newlength{\tabcont}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\colorlet{shadecolor}{orange!15}
+\parindent 0in
+\parskip 12pt
+\geometry{margin=1in, headsep=0.25in}
+\newtheorem{note}{Nota}
+
+%% NewCommands
+\newcommand{\sse}{\leftrightarrow}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\msf}[1]{\mathsf{#1}}
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\subs}[2]{
+    \setcounter{subsection}{#1 - 1}
+    \subsection{#2}
+    }
+\newcommand\overtext[2]
+{\stackrel{\mathclap{\normalfont\mbox{#1}}}{#2}}
+\renewcommand\qedsymbol{$\dashv$}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\rp}[1]{{\left(#1\right)}}
+
+%% Document
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+{\LARGE \bf Provas e Exercícios}\\
+{\large Ref. A Mathematical Introduction to Logic - H. B. Enderton}\\
+Verão 2023
+
+\vspace{0.7cm}
+\textbf{Xenônio}\\
+Discord: xennonio
+\end{center}
+
+\tableofcontents
+
+\section{Lógica Sentencial}
+
+\subs{1}{A Linguagem da Lógica Sentencial}
+
+$$\textbf{\textcolor{red}{PENDENTE}}$$
+
+\section{Lógica de Primeira-Ordem}
+
+\subs{2}{Verdade e Modelos}
+
+\begin{shaded}
+\textbf{Exercício 1.} Mostre que:\\
+a) $\Gamma\cup\{\alpha\}\vDash\varphi$ sse $\Gamma\vDash(\alpha\to\varphi)$;\\
+b) $\varphi\vDash\Dashv\psi$ sse $\vDash(\varphi\leftrightarrow\psi)$.
+\end{shaded}
+
+\begin{proof}
+    a) ($\Rightarrow$) Seja $(\mf{A},s)$ uma estrutura tq $\vDash_\mf{A}\gamma[s],\gamma\in\Gamma$, sabemos que $\vDash_\mf{A}\alpha[s]$ ou $\nvDash_\mf{A}\alpha[s]$, no último caso é claro que $\vDash_\mf{A}(\alpha\to\varphi)[s]$ por definição. No primeiro, como $\Gamma\cup\{\alpha\}\vDash\varphi$ e $\mf{A}$ é um modelo de cada sentença em $\Gamma\cup\{\alpha\}$, então $\vDash_\mf{A}\varphi[s]$, portanto $\vDash_\mf{A}(\alpha\to\varphi)[s]$.\\
+    ($\Leftarrow$) Dado $\Gamma\vDash(\alpha\to\varphi)$, sabemos que se $(\mf{A},s)$ é tq $\vDash_\mf{A}\gamma,\gamma\in\Gamma$, portanto $\vDash_\mf{A}(\alpha\to\varphi)[s]$, logo, se $\mf{A}$ é um modelo de $\Gamma$ e $\alpha$, então $\vDash_\mf{A}\varphi[s]$, portanto $\Gamma\cup\{\alpha\}\vDash\varphi$.
+    
+    b) ($\Rightarrow$) Dado $\varphi\vDash\Dashv\psi$, se $(\mf{A},s)$ é tq $\vDash_\mf{A}\varphi[s]$, então $\vDash_\mf{A}\psi[s]$, portanto $\vDash_\mf{A}(\varphi\leftrightarrow\psi)[s]$, para o caso que $\nvDash_\mf{A}\varphi[s]$ temos $\nvDash_\mf{A}\psi[s]$, portanto $\vDash_\mf{A}(\varphi\leftrightarrow\psi)[s]$, i.e., $\vDash(\varphi\leftrightarrow\psi)$;\\
+    ($\Leftarrow$) Se $\vDash(\varphi\leftrightarrow\psi)$, então para um $(\mf{A},s)$ arbitrário se $\vDash_\mf{A}\varphi$, então $\vDash_\mf{A}\psi$, i.e., $\varphi\vDash\psi$, e caso $\vDash_\mf{A}\psi$, então $\vDash_\mf{A}\varphi$, portanto $\varphi\vDash\Dashv\psi$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} Mostre que nenhuma das sentenças a seguir é logicamente implicada pelas outras duas:\\
+$\alpha:=\forall x\forall y\forall z(Pxy\to(Pyz\to Pxz))$;\\
+$\beta:=\forall x\forall y(Pxy\to(Pyx\to x=y))$;\\
+$\gamma:=\forall x\exists yPxy\to\exists y\forall xPxy$.
+\end{shaded}
+
+\begin{proof}
+    Sabemos que se $\varphi,\psi\vDash\chi$, então qualquer modelo de $\varphi,\psi$ é também de $\chi$, para mostrar que nenhuma das sentenças é logicamente implicada pelas outras basta criarmos um modelo que satisfaz cada combinação de duas fórmulas e a negação da outra. $\alpha$ diz que $P$ é transitiva, $\beta$ que $P$ é antissimétrica e $\gamma$ que se $P$ for total, então ela colapsa todos os pontos no $\msf{Dom}(P)$ em um só. Com isso em mente sejam $x, y,z$ elementos distintos:
+    
+    $\vDash_\mf{A}(\alpha\wedge\beta\wedge\neg\gamma)$:\\
+    $|\mf{A}|=\{x,y\}, P^\mf{A}=\{(x,x),(y,y)\}$
+
+    $\vDash_\mf{B}(\alpha\wedge\neg\beta\wedge\gamma)$:\\
+    $|\mf{B}|=\{x,y\}, P^\mf{B}=\{(x,y),(y,y)\}$
+
+    $\vDash_\mf{C}(\neg\alpha\wedge\beta\wedge\gamma)$:\\
+    $|\mf{C}|=\{x,y,z\}, P^\mf{C}=\{(x,y),(y,z)\}$
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 3.} Mostre que
+$$\{\forall x(\alpha\to\beta),\forall x\alpha\}\vDash\forall x\beta$$
+\end{shaded}
+
+\begin{proof}
+    Seja $(\mf{A},s)$ tq $\vDash_\mf{A}\forall x(\alpha\to\beta)[s]$ e $\vDash_\mf{A}\forall x\alpha[s]$, logo $\vDash_\mf{A}(\alpha\to\beta)\left[s\tfrac{d}{x}\right]$ e $\vDash_\mf{A}\alpha\left[s\tfrac{d}{x}\right]$ para todo $d\in|\mf{A}|$, i.e., se $\vDash_\mf{A}\alpha\left[s\tfrac{d}{x}\right]$, então $\vDash_\mf{A}\beta\left[s\frac{d}{x}\right]$, visto que $\vDash_\mf{A}\alpha\left[s\frac{d}{x}\right]$, então $\vDash_\mf{A}\beta\left[s\frac{d}{x}\right]$, para todo $d\in|\mf{A}|$, i.e., $\vDash_\mf{A}\forall x\beta$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 4.} Mostre que se $x\notin\msf{free}(\alpha)$, então $\alpha\vDash\forall x\alpha$.
+\end{shaded}
+
+\begin{proof}
+    Seja $(\mf{A},s)$ tq $\vDash_\mf{A}\alpha[s]$, visto que para todo $d\in|\mf{A}|$ temos que $s\tfrac{d}{x},s:V\to|\mf{A}|$ discordam apenas em $x$ que não ocorre livre em $\alpha$, portanto concordam em todas as variáveis que ocorrem em $\alpha$. Pelo \textbf{Teorema 22A} temos então que se $\vDash_\mf{A}\alpha[s]$, então $\vDash_\mf{A}\alpha\left[s\tfrac{d}{x}\right]$, para todo $d\in|\mf{A}|$, i.e., $\vDash_\mf{A}\forall x\alpha$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 5.} Mostre que a fórmula $x=y\to(Pzfx\to Pzfy)$ (onde $f$ é um símbolo de função unário e $P$ um símbolo de relação binário) é válida.
+\end{shaded}
+
+\begin{proof}
+    Assuma por contradição que $\varphi(x,y,z):=(x=y\to(Pzfx\to Pzfy))$ não seja válida, logo existe $(\mf{A},s)$ tq $\nvDash_\mf{A}\varphi(x,y,z)[s]$, i.e., $\vDash_\mf{A}(x=y)[s]$, $\vDash_\mf{A}Pzfx$ e $\nvDash_\mf{A}Pzfy$, portanto $\overline{s}(x)=\overline{s}(y)$, $(\overline{s}(z),\overline{s}(fx))\in P^\mf{A}$ e $(\overline{s}(z),\overline{s}(fy))\notin P^\mf{A}$, mas $\overline{s}(fx)=f^\mf{A}(\overline{s}(x))=f^\mf{A}(\overline{s}(y))=\overline{s}(fy)$, contradição.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 6.} Mostre que uma fórmula $\theta$ é válida sse $\forall x\theta$ é válida.
+\end{shaded}
+
+\begin{proof}
+    ($\Rightarrow$) Se $\vDash_\mf{A}\theta[s]$, para todo $(\mf{A},s)$, em particular $\vDash_\mf{A}\theta\left[s\tfrac{d}{x}\right]$, para todo $d\in|\mf{A}|$, visto que $s$ é arbitrário, portanto $\vDash_\mf{A}\forall x\theta$;\\
+    ($\Leftarrow$) Se $\vDash_\mf{A}\forall x\theta$, então $\vDash_\mf{A}\theta\left[s\tfrac{d}{x}\right]$, para todo $(\mf{A},s)$ com $d\in|\mf{A}|$, logo, em particular, vale para $d=s(x)$. Visto que $s\tfrac{s(x)}{x}=s$, então $\vDash_\mf{A}\theta[s]$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 7.} Redefina "$\mf{A}$ satisfaz $\varphi$ com $s$" por meio de uma função recursiva $\overline{h}$ tq $\mf{A}$ satisfaz $\varphi$ com $s$ sse $s\in\overline{h}(\varphi)$.
+\end{shaded}
+
+\begin{proof}
+    Fixando $\mf{A}$ e utilizando a definição de $\overline{s}$ usual para cada termo $\tau$, sejam:\\
+    $(\wedge):\mc{L}^\mc{S}\times\mc{L}^\mc{S}\to\mc{L}^\mc{S}$, $(\neg):\mc{L}^\mc{S}\to\mc{L}^\mc{S}$, $(\forall v_n):\mc{L}^\mc{S}\to\mc{L}^\mc{S}$ e $h:\msf{At}\to|\mf{A}|^V$ (com $\msf{At}$ sendo o conjunto de fórmulas atômicas) definido como:
+    \begin{align*}
+        h(t_1=t_2) & =\{s\in|\mf{A}|^V\mid\overline{s}(t_1)=\overline{s}(t_2)\};\\
+        h(Pt_1\dots t_n) & = \{s\in|\mf{A}|^V\mid(\overline{s}(t_1),\dots,\overline{s}(t_n))\in P^\mf{A}\}
+    \end{align*}
+    É fácil ver que $\mc{L}^\mc{S}$ é livremente gerado de $\msf{At}$ por $(\wedge),(\neg),(\forall v_n)$, pra cada $v_n\in V$. Logo o Teorema da Recursão garante que existe um único $\overline{h}:\mc{L}^\mc{S}\to|\mf{A}|^V$ satisfazendo:
+    \begin{align*}
+        \overline{h}(\varphi) & =h(\varphi), \text{para }\varphi\in\msf{At};\\
+        \overline{h}((\wedge)(\varphi,\psi)) & = \{s\in|\mf{A}|^V\mid s\in\overline{h}(\varphi)\wedge s\in\overline{h}(\psi)\}\\
+        \overline{h}((\neg)(\varphi)) & = \{s\in|\mf{A}|^V\mid s\notin\overline{h}(\varphi)\}\\
+        \overline{h}((\forall v_n)(\varphi)) & = \bigl\{s\in|\mf{A}|^V\mid\forall d\left(d\in\mf{A}\to s\tfrac{d}{x}\in\overline{h}(\varphi\right)\bigr\}
+    \end{align*}
+    Bastando agora verificar que $\vDash_\mf{A}\varphi[s]$ sse $s\in\overline{h}(\varphi)$, o que é trivial por indução em fórmulas.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 8.} Seja $\Sigma\subseteq\mc{L}_0^\mc{S}$ completo e $\mf{A}$ um modelo de $\Sigma$, prove que para qualquer $\tau\in\mc{L}_0^\mc{S}$ temos $\vDash_\mf{A}\tau$ sse $\Sigma\vDash\tau$.
+\end{shaded}
+
+\begin{proof}
+    ($\Leftarrow$) Se $\Sigma\vDash\tau$, como $\mf{A}$ é um modelo de $\Sigma$, então $\vDash_\mf{A}\tau$ por definição;\\
+    ($\Rightarrow$) Se $\Sigma\nvDash\tau$, como $\Sigma$ é completo, então $\Sigma\vDash\neg\tau$, i.e., $\vDash_\mf{A}\neg\tau$, portanto $\nvDash_\mf{A}\tau$. Por contraposição temos que se $\vDash_\mf{A}\tau$, então $\Sigma\vDash\tau$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 9.} Seja $\mc{S}=\{P\}$ sendo $P$ um símbolo de relação binário. Para cada uma das condições abaixo, construa uma sentença $\sigma$ tq $\vDash_\mf{A}\sigma[s]$ sse a condição é satisfeita:\\
+a) $|\mf{A}|$ tem exatamente dois elementos;\\
+b) $P^\mf{A}$ é uma função de $|\mf{A}|$ em $|\mf{A}|$\\
+c) $P^\mf{A}$ é uma permutação em $|\mf{A}|$.
+\end{shaded}
+
+\begin{proof}
+    a) $\exists v_1\exists v_2(\neg(v_1=v_2)\wedge\forall x(x=v_1\vee x=v_2))$;\\
+    b) $\msf{Fun}(P):=\forall x\exists y(Pxy\wedge\forall z(Pxz\to z=y))$;\\
+    c) $\msf{Fun}(P)\wedge\forall y\exists x(Pxy\wedge\forall z(Pzy\to x=z))$.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} Para um $n\in\mbb{N}$ qualquer podemos formalizar "$|\mf{A}|$ tem exatamente $n$ elementos" como:
+$$\varphi_{=n}:=\exists v_1\dots v_n\left(\varphi_{\geq n}\wedge\forall v\left(\bigwedge_{i=1}^n v=v_i\right)\right)$$
+onde $\varphi_{\geq n}$ é a formalização de há no mínimo $n$ elementos, dada por:
+$$\varphi_{\geq n}:=\bigwedge_{i,j\in\{1,\dots,n\}}\neg(v_i=v_j).$$
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 10.} Mostre que, para $Q$ um símbolo de relação binário e $c$ um símbolo de constante:
+$$\vDash_\mf{A}\forall v_2Qv_1v_2[\![c^\mf{A}]\!]\text{ sse }\vDash_\mf{A}\forall v_2Qcv_2.$$
+\end{shaded}
+
+\begin{proof}
+    \begin{align*}
+        \vDash_\mf{A}\forall v_2Qv_1v_2[\![c^\mf{A}]\!] & \text{ sse }\vDash_\mf{A}Qv_1v_2\left[s\tfrac{d}{v_2}\right],\text{ com }s(v_1)=c^\mf{A},\text{ para todo }d\in|\mf{A}|\\
+        & \text{ sse }\left(c^\mf{A},d\right)\in Q^\mf{A},\text{ para todo }d\in|\mf{A}|\\
+        & \text{ sse }\vDash_\mf{A}Qcv_2\left[s\tfrac{d}{v_2}\right],\text{ para todo }d\in|\mf{A}|\\
+        & \text{ sse }\forall v_2Qcv_2.
+    \end{align*}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 11.} Para cada uma das relações a seguir, dê uma fórmula que a defina em $(\mbb{N},+,\cdot)$.\\
+a) $\{0\}$;\\
+b) $\{1\}$;\\
+c) $\{(m,n)\mid n\text{ é o sucessor de }m\text{ em }\mbb{N}\}$;\\
+d) $\{(m,n)\mid m<n\text{ em }\mbb{N}\}$.
+\end{shaded}
+
+\begin{proof}
+    Para cada uma das relações $X$ definiremos $\varphi$ tq $X=\{x\in\mbb{N}\mid\varphi(x)\}$:\\
+    a) $\varphi_1(x)=\forall y(y=x+y)$;\\
+    b) $\varphi_2(x)=\forall y(y\cdot x=y)$;\\
+    c) $\varphi_3(n,m)=\exists y\forall x(xy=x\wedge n=m+y)$;\\
+    d) $\varphi_4(n,m)=\exists y(\neg\forall x(x=y+x)\wedge n=m+y)$ ou $\exists x\exists y(\varphi_3(x,y)\wedge n=x+m)$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 12.} Seja $\mf{R}=(\mbb{R},+,\cdot)$:\\
+a) Dê uma fórmula que defina em $\mf{R}$ o intervalo $[0,\infty)$;\\
+b) Dê uma fórmula que defina em $\mf{R}$ o conjunto $\{2\}$;\\
+c) Mostre que $\bigcup_{1\leq i\leq n}I_n$, para quaisquer intervalos $I_1,\dots,I_n$ cujos extremos são números algébricos ou $\pm\infty$, é definível em $\mf{R}$.
+\end{shaded}
+
+\begin{proof}
+    a) $\psi_1(x)=\exists y(y\cdot y=x)$ garante que $x\geq0$, visto que $y\cdot y=y^2\geq0$;\\
+    b) $\psi_2(x)=\exists y(\forall z(y\cdot z=z)\wedge x=y+y)$;\\
+    c) Sabemos que $\alpha\in\mbb{R}$ é algébrico sse existe $p\in\mbb{Z}[x]$ tq $p(\alpha)=0$, equivalentemente, podemos descrever $p(x)=0$ como $p_1(x)=p_2(x)$ onde $p_1,p_2\in\mbb{N}[x]$ (basta somar os termos negativos em $p(x)$), analogamente seria fácil descrever um inteiro negativo $x=-n\in\mbb{N}$ como $x+n=0$, o que nos permitiria descrever $p(x)=0$ direto. Com isso em mãos, e sabendo que a relação de $<$ é definível em $\mbb{R}$ como $(x\leq y\wedge x\neq y)$, sendo $x\leq y:=\exists z(y + z\cdot z=x)$, podemos definir os números algébricos das seguintes formas:\\
+    1. Seja $p\in\mbb{Z}[x]$ um polinômio com raízes de multiplicidade no máximo 1 tq $p=a_0+a_1x+\dots+a_nx^n$ cujas raízes, em ordem, são $\alpha_1,\dots,\alpha_{k-1},x,\alpha_k,\dots,\alpha_{n-1}$, defina:
+    $$\varphi_{v_i}:=\underbrace{(1+\dots+1)}_{a_0\text{ vezes}}+\dots+\underbrace{(1+\dots+1)}_{a_n\text{ vezes}}\underbrace{(v_i\cdot\dots\cdot v_i)}_{n\text{ vezes}}=0$$
+    Portanto o número algébrico $x$ pode ser definido por
+    $$\psi(x):=\exists v_1\dots v_{n-1}\left(\bigwedge_{1\leq i< n}\varphi_i\right)\wedge\varphi_x\wedge(v_1<\dots<v_{k-1}<x<v_k<\dots<v_{n-1});$$
+    2. Podemos também utilizar o fato de que $\mbb{Q}$ é denso em $\mbb{R}$ e tomar $\tfrac{p}{q},\tfrac{r}{s}\in\mbb{Q}$ tq $$\alpha_{k-1}<\frac{p}{q}<x<\frac{r}{s}<\alpha_k$$
+    portanto $x$ pode ser definido como:
+    $$\psi(x):=\varphi_x\wedge(p<q\cdot x)\wedge(s\cdot x<r)$$
+    visto que tanto inteiros quanto naturais podem ser definidos em $\mf{R}$.
+
+    De volta ao resultado inicial, para um intervalo meio aberto $(a,b]$, com $a, b$ algébricos podemos definir $(a,b]:=\{x\in\mbb{R}\mid\exists ab(\psi(a)\wedge\psi(b)\wedge a<x\wedge a\leq b)\}$, o caso para $(a,b)$, $[a,b]$ e $[a,b)$ é análogo, se $b=\infty$ podemos definir $(a,\infty)$ por $\exists a(\psi(a)\wedge a<x)$, os outros casos para $\pm\infty$ também são análogos. Sejam agora $I_1,I_2$ intervalos definidos por $\varphi,\psi$, portanto $I_1\cup I_2$ pode ser definido como $\varphi\vee\psi$, o que termina a prova.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} De uma forma mais geral, uma estrutura infinita $(M,<,\dots)$ que é totalmente ordenada por $<$, é dita ser \textit{o-mínima} sse todo subconjunto definível $X\subseteq M$ é a união finita de pontos e intervalos abertos (ou, equivalentemente, intervalos quaisquer). Provamos que a união finita de intervalos cujos pontos extremos são algébricos são definíveis em $\mf{R}$, mostrar que esses são os únicos é provar que $\mf{R}$ é uma estrutura o-mínima. Um exemplo clássico de teoria o-mínima são os corpos reais fechados, portanto em particular $\mf{R}$ é uma estrutura o-mínima, a teoria dos corpos reais fechados é particularmente importante para teóricos dos modelos, visto que Tarski provou que ela é decidível (em um tempo de complexidade terrível, mas teoricamente é).
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 13.} Prove que se $h$ é um homomorfismo de $\mf{A}$ em $\mf{B}$ e $s:V\to|\mf{A}|$, então para qualquer termo $t$, $h(\overline{s}(t))=\overline{h\circ s}(t)$, onde $\overline{s}$ é calculado em $\mf{A}$ e $\overline{h\circ s}$ em $\mf{B}$.
+\end{shaded}
+
+\begin{proof}
+    É fácil provar por indução, obviamente para $v\in V$ temos $\overline{s}(v)=s(v)$, portanto $h(\overline{s}(v))=\overline{h\circ s}(v)$. Se $c$ é um símbolo de constante $h(\overline{s}(c))=h(c^\mf{A})=c^\mf{B}$, por definição de homomorfismo. $\overline{h\circ s}(c)=c^\mf{B}$ por definição da extensão da valoração $h\circ s:V\to|\mf{B}|$.\\
+    Como hipótese indutiva temos $h(\overline{s}(t_i))=\overline{h\circ s}(t_i)$, para $1\leq i \leq n$. Para o passo indutivo seja $f$ um símbolo de função $n$-ária, logo
+    \begin{align*}
+        h(\overline{s}(ft_1\dots t_n)) & = h\left(f^\mf{A}\left(\overline{s}(t_1),\dots,\overline{s}(t_n)\right)\right);\\
+        & = f^\mf{B}\left(h(\overline{s}(t_1)),\dots,h(\overline{s}(t_n))\right);\\
+        & = f^\mf{B}\left(\overline{h\circ s}(t_1),\dots,\overline{h\circ s}(t_n)\right)\text{ (Pela hipótese de indução)};\\
+        & = \overline{h\circ s}(ft_1\dots t_n).
+    \end{align*}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 14.} Liste os subconjuntos de $\mbb{R}$ que são definíveis em $\mf{R}=(\mbb{R},<)$. Faça o mesmo para os em $\mbb{R}\times\mbb{R}$.
+\end{shaded}
+
+\begin{proof}
+    Seja $A\subseteq\mbb{R}$ limitado superiormente, se $A\neq\emptyset$, então existe $x\in A$ e $\varepsilon>0$ tal que $x=\sup(A)-\varepsilon$. Caso $A$ seja definível, o \textbf{Teorema do Homomorfismo} garante que, o automorfismo $h(x)=x+2\varepsilon$ (que é estritamente crescente, portanto é um homomorfismo) é tq se $x\in A$, então $h(x)=\sup(A)+\varepsilon>\sup(A)$ está em A, contradição. O caso em que $A$ é limitado inferior é análogo. Portanto nenhum subconjunto não-vazio limitado é definível em $\mbb{R}$, logo só nos resta $\mbb{R}$ e $\emptyset$, que de fato são definíveis por $x=x$ e $x\neq x$, respectivamente.\\
+    Analogamente, se $A\subseteq\mbb{R}\times\mbb{R}$ for definível, então $\msf{Dom}(A)=\{x\in\mbb{R}\mid\exists y(Axy)\}$ (e $\msf{Ran}(A)$, respectivamente), também é definível, logo se $A$ é definível, seu domínio e imagem tem necessariamente de ser $\emptyset$ ou $\mbb{R}$. É intuitivo ver após algumas tentativas que os casos triviais são definíveis:
+    \begin{align*}
+        \mbb{R}\times\mbb{R} & = \{(x,y)\mid x=x \wedge y=y\};\\
+        \emptyset & = \{(x,y)\mid x\neq x\wedge y\neq y\};\\
+        < & = \{(x,y)\mid x<y\};\\
+        \equiv & = \{(x,y)\mid x=y\};\\
+        > & = \{(x,y)\mid\neg(x=y)\wedge\neg(x<y)\};\\
+        \leq & = \{(x,y)\mid x<y\vee x=y\};\\
+        \geq & = \{(x,y)\mid \neg(x<y)\};\\
+        \mbb{R}\times\mbb{R}\backslash\equiv & =\{(x,y)\mid x=x\wedge y=y\wedge \neg(x=y)\}
+    \end{align*}
+    mas a priori não temos nenhuma condição forte o suficiente para saber se esses são os únicos subconjuntos definíveis, mas um pouco mais será explorado nas observações a seguir.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} O \textbf{Teorema do Homomorfismo} garante que se $h$ é um automorfismo em $M$, então se $A\subseteq M^n$ é definível temos $(a_1,\dots,a_n)\in A$ sse $(h(a_1),\dots,h(a_n))\in A$, em um outro sentido, se definirmos a relação $\sim$ tq $a\sim b$ sse existe um automorfismo $h$ em $M$ onde $h(a)=b$, é fácil ver que $\sim$ é uma relação de equivalência. Além disso, se $a\in A$ e $a\sim b$, então $h(a)=b\in A$ e, portanto, todo conjunto definível em $M^n$ vai ser a união dos conjuntos do conjunto quociente $\bigslant{M^n}{\sim}$.\\
+Vamos aplicar isso a $\mbb{R}$, sabemos que os automorfismo são funções estritamente crescentes, logo se $a\in A$, então existe um $h$ tal que $h(a)=b$, para todo $a\in A$ (basta pegar $h(x)=x+(b-a)$), logo 
+$\bigslant{\mbb{R}}{\sim}=\mbb{R}$, sendo as únicas combinações de uniões possíveis para o conjunto quociente $\mbb{R}$ próprio e $\emptyset$ (a união de nenhum elemento).\\
+Vamos repetir o processo para $\mbb{R}\times\mbb{R}$ que é mais interessante, se $(a,b)\in A\subseteq\mbb{R}\times\mbb{R}$ e $A$ é definível, caso $a=b$, como $h$ é um automorfismo, temos que $(a,a)\in A$ sse $(h(a),h(a))=(x,x)\in A$, equivalentemente, como $h$ tem de ser estritamente crescente e sempre existe um $h$ que mapeia $a$ pra algum real então $[\equiv]=\{(x,x)\in\mbb{R}\times\mbb{R}\mid x=x\}$ é uma classe de equivalência. Se $a<b$, então $(h(a),h(b))\in A$ e $h(a)<h(b)$, portanto é fácil ver que as outras duas classes são $[<]=\{(x,y)\in\mbb{R}\times\mbb{R}\mid x<y\}$ e $[>]=\{(x,y)\in\mbb{R}\times\mbb{R}\mid x\nless y\wedge x\neq y\}$, logo se um conjunto é definível, ele é uma das possíveis uniões de $\bigslant{\mbb{R}\times\mbb{R}}{\sim}=\{[\equiv],[<],[>]\}$, que são exatamente os conjuntos descritos! Portanto provamos que eles são os únicos:
+\begin{align*}
+    \emptyset & = \text{união de nenhum elemento};\\
+    < & = [<];\\
+    \equiv & = [\equiv];\\
+    > & = [>]\\
+    \leq & = [<]\cup[\equiv];\\
+    \geq & = [>]\cup[\equiv];\\
+    \mbb{R}\times\mbb{R}\backslash\equiv & = [<]\cup[>];\\
+    \mbb{R}\times\mbb{R} & = [\equiv]\cup[<]\cup[>].\\
+\end{align*}
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 15.} Mostre que a relação $R=\{(m,n,p)\mid p=m+n\}$ não é definível em $(\mbb{N},\cdot)$.
+\end{shaded}
+
+\begin{proof}
+    Defina um automorfismo $h:\mbb{N}\to\mbb{N}$ tq $h(0)=0,h(1)=1,h(2)=3,h(3)=2$, se $x=y$ o Teorema Fundamental da Aritmética garante que ambos possuem a mesma fatoração em primos $2^{\alpha_1}\cdot3^{\alpha_2}\dots p_n^{\alpha_n}$, portanto $h(x)=2^{\alpha_2}\cdot3^{\alpha_1}\dots p_n^{\alpha_n}=h(y)$, logo $h$ é injetora, além disso, para todo $n=2^{\beta_1}\cdot3^{\beta_2}\dots q_m^{\beta_m}$, temos que $k=2^{\beta_2}\cdot3^{\beta_1}\dots q_m^{\beta_m}$ é tq $h(k)=n$, logo $h$ é bijetora e, portanto, é um automorfismo em $(\mbb{N},\cdot)$, entretanto, se $+$ fosse definível em $(\mbb{N},\cdot)$, então $(1,1,2)\in R$ sse $(h(1),h(1),h(2))=(1,1,3)\in R$, contradição.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 16.} Construa uma sentença $\varphi$ que possua modelos de tamanho exatamente $2n$, para qualquer inteiro positivo $n$.
+\end{shaded}
+
+\begin{proof}
+    Seja $\mc{S}=\{R\}$ onde $R$ é um símbolo de relação binário, defina
+    $$\varphi=\bigwedge\Phi_\text{eq}\wedge\exists v_1v_2\left(\varphi_{\geq 2}\wedge\forall v\left(Rvv_1\vee Rvv_2\right)\right)$$
+    onde $\varphi_{\geq n}$ é a formalização de "há no mínimo $n$ elementos" definida na \textbf{Obs.} do \textbf{Exercício 9.} e $\bigwedge\Phi_\text{eq}$ é a conjunção dos axiomas da relação de equivalência definidos por:
+    $$\Phi_\text{eq}:=\{\underbrace{\forall v_0Rv_0v_0}_\text{Reflexiva}, \underbrace{\forall v_0v_1(Rv_0v_1\to Rv_1v_0)}_\text{Simétrica}, \underbrace{\forall v_0v_1v_2((Rv_0v_1\wedge Rv_1v_2)\to Rv_0v_2)}_\text{Transitiva}\}$$
+    Isso garante não só que $R$ seja uma relação de equivalência como também que o conjunto quociente $\bigslant{|\mf{A}|}{R}$ de qualquer modelo de $\varphi$ terá exatamente $2$ classes de equivalência, como todas possuem a mesma cardinalidade tem de ser possível particionar o domínio em $2$ conjuntos diferentes, i.e., ser um múltiplo de $2$.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} Podemos estender o raciocínio e, utilizando o termo modelo-teórico usual, definir o \textit{spectrum} $\{n\in\mbb{N}\backslash\{0\}\mid n\equiv 0(\text{mod }m)\}$, para $m\geq 1$ da seguinte forma:
+$$\varphi=\bigwedge\Phi_\text{eq}\wedge\exists v_1\dots v_m\left(\varphi_{\geq m}\wedge\forall v\left(\bigvee_{i=1}^mRvv_i\right)\right)$$
+o raciocínio é o mesmo, garantimos que $R$ é uma relação de equivalência e que o conjunto quociente de qualquer modelo sobre $R$ terá exatamente $m$ classes, i.e., pode ser particionado em $m$ conjuntos de mesmo tamanho.
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 17.} a) Considere $\mc{S}=\{P\}$ um símbolo de relação binário. Mostre que se $\mf{A}$ é finito e  $\mf{A}\equiv\mf{B}$, então $\mf{A}\cong\mf{B}$;\\
+b) Mostre que o resultado em a) vale independente de $\mc{S}$.
+\end{shaded}
+
+\begin{proof}
+    a) Assuma que $\mf{A}$ possua $n$ elementos, logo $\vDash_\mf{A}\varphi_{=n}$. Seja agora $s$ tq $s(v_1)\neq\dots\neq s(v_n)$ e
+    $$\psi_{i,j}^P=\begin{cases}Pv_iv_j,\text{ se }\vDash_\mf{A}Pv_iv_j[s];\\\neg Pv_iv_j,\text{ caso contrário}.\end{cases}$$
+    Obviamente $\vDash_\mf{A}\bigwedge_{i,j\in\{1,\dots,n\}}{\psi_{i,j}^P}[s]$ por definição, logo $\vDash_\mf{A}\chi:=\varphi_{=n}\wedge\bigwedge_{i,j\in\{1,\dots,n\}}\psi_{i,j}^P[s]$. Visto que $\mf{A}\equiv\mf{B}$, então $\vDash_\mf{B}\chi$, logo $\mf{B}$ tem exatamente $n$ elementos, existe uma valoração $s':V\to|\mf{B}|$ tq $s(v_1)\neq\dots\neq s(v_n)$ e há uma única interpretação possível para $P^\mf{B}$, visto que cada elemento de $|\mf{A}|$ pode ser determinado unicamente por $s(v_i)$ e os em $|\mf{B}|$ por $s'(v_i)$, portanto $h:|\mf{A}|\to|\mf{B}|$ tq $h(s(v_i))=s'(v_i)$ é um isomorfismo, garantido pelas propriedades acima.\\
+    b) O caso em que possuímos $\{P_1,\dots,P_n\}$ símbolos de relação de diversas aridades é trivial, basta, para $P_i$ $m$-ário, tomar $\bigwedge_{i_1,\dots,i_m\in\{1,\dots,n\}}\psi_{i_1,\dots,i_m}^P$, a conjunção de cada qual garante que toda estrutura elementarmente equivalente a $\mf{A}$ também será isomórfica pelo mesmo $h$. Para o caso que possuímos um símbolo de função $m$-ária $f$ construimos
+    $$\alpha^f_{i_1,\dots,i_m}=\begin{cases}
+        fv_{i_1}\dots v_{i_{m-1}}=v_{i_m},\text{ se }f^\mf{A}(\overline{s}(v_{i_1}),\dots,\overline{s}(v_{i_{m-1}}))=\overline{s}(v_{i_m});\\
+        \neg fv_{i_1}\dots v_{i_{m-1}}=v_{i_m},\text{ caso contrário}.
+    \end{cases}$$
+    e, analogamente
+    $$\beta^c_{i}=\begin{cases}
+        c=v_i,\text{ se }c^\mf{A}=\overline{s}(v_i);\\
+        \neg c=v_i,\text{ caso contrário}.
+    \end{cases}$$
+    logo, defina
+    $$\gamma=\varphi_{=n}\wedge\bigwedge\psi^{P_{i_1}}\wedge\dots\wedge\bigwedge\psi^{P_{i_p}}\wedge\bigwedge\alpha^{f_{i_1}}\wedge\dots\wedge\bigwedge\alpha^{f_{i_q}}\wedge\bigwedge\beta^{c_{i_1}}\wedge\dots\wedge\bigwedge\beta^{c_{i_r}}$$
+    é fácil ver, pelo mesmo argumento, que a função $h$ que identifica cada elemento de $\mf{A}$ pela sua interpretação na valoração $s$ define um isomorfismo entre $\mf{A}$ e $\mf{B}$, dado que $\vDash_\mf{B}\gamma$.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} Um resultado mais forte diz respeito a transformar uma $\mc{S}$-estrutura $\mf{A}$ arbitrária em uma $\mc{S}^r$-estrutura \textit{relacional} $\mf{A}^r$, i.e., contendo apenas símbolos de relação, basta definirmos $|\mf{A}|=|\mf{A}^r|$; para cada $P\in\mc{S}$, $P^{\mf{A}^r}=P^\mf{A}$; para cada símbolo $n$-ário de função $f\in\mc{S}$, adicione $F\in\mc{S}^r$ como o grafo de $f$, i.e., $F^{\mf{A}^r}a_1\dots a_na$ sse $f^\mf{A}(a_1,\dots,a_n)=a$, e por fim para cada $c\in\mc{S}$ adicione $C\in\mc{S}^r$ como o grafo de $c$, i.e., $C^{\mf{A}^r}$ sse $c^\mf{A}=a$. Com isso, é fácil provar que para todo $\psi\in\mc{L}^\mc{S}$, existe um $\psi^r\in\mc{L}^{\mc{S}^r}$ tq para toda $\mc{S}$-estrutura $(\mf{A},s)$
+$$\vDash_\mf{A}\psi[s]\text{ sse }\vDash_{\mf{A}^r}\psi^r[s]$$
+Analogamente, para todo $\psi\in\mc{L}^{\mc{S}^r}$, existe um $\psi^{-r}\in\mc{L}^\mc{S}$ tq para toda $\mc{S}$-estrutura $(\mf{A},s)$ vale
+$$\vDash_\mf{A}\psi^{-r}[s]\text{ sse }\vDash_{\mf{A}^r}\psi[s]$$
+Em outras palavras, toda sentença em $\mf{A}^r$ possui um análogo em $\mf{A}$, e vice-versa, um corolário direto é que $\mf{A}\equiv\mf{B}$ sse $\mf{A}^r\equiv\mf{A}^r$. A prova do teorema é fácil e feita da forma esperada, definindo $[fy_1\dots y_n=x]^r:=Fy_1\dots y_nx$, $[c=x]^r:=Cx$, $[\psi_1\vee\psi_2]^r:=\psi_1^r\vee\psi_2^r$ e os outros conectivos de forma análoga, sendo o caso contrário também trivial, $[Ft_1\dots t_nt]^{-r}:=ft_1\dots t_n=t$, etc. A prova da equivalência sai de forma direta.
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 18.} Uma fórmula universal $(\Pi_1)$ é uma da forma $\forall x_1\dots x_n\theta$, onde $\theta$ é livre de quantificadores. Analogamente, uma existencial $(\Sigma_1)$ é da forma $\exists x_1\dots x_n\theta$. Seja $\mf{A}\subseteq\mf{B}$ e $s:V\to|\mf{A}|$.\\
+a) \textbf{Teorema da Preservação de Łoś–Tarski}: Mostre que se $\vDash_\mf{A}\psi[s]$, com $\psi\in\Sigma_1$, então $\vDash_\mf{B}\psi[s]$. E se $\vDash_\mf{B}\varphi[s]$, com $\varphi\in\Pi_1$, então $\vDash_\mf{A}\varphi[s]$;\\
+b) Conclua que a sentença $\exists xPx$ não é logicamente válida a nenhuma sentença $\Pi_1$, nem $\forall x Px$ a uma $\Sigma_1$.
+\end{shaded}
+
+\begin{proof}
+    a) Se $\vDash_\mf{A}\exists\overline{x}\psi(\overline{x},\overline{y})[s]$, então existe $\overline{a}\in|\mf{A}|^n$ tq $\vDash_\mf{A}\psi(\overline{x},\overline{y})\left[s\tfrac{\overline{a}}{\overline{x}}\right]$, logo o \textbf{Teorema do Homomorfismo} garante que $\vDash_\mf{B}\psi(\overline{x},\overline{y})\left[h\circ s\tfrac{\overline{a}}{\overline{x}}\right]$, mas como $h:|\mf{A}|\to|\mf{B}|$ é uma inclusão definida como $h(a)=a$, então $h\circ s\frac{\overline{a}}{\overline{x}}=s\frac{\overline{a}}{\overline{x}}:V\to|\mf{B}|$, além disso, como $|\mf{A}|^n\subseteq|\mf{B}|^n$, então $\overline{a}\in|\mf{B}|^n$, logo $\vDash_\mf{B}\psi(\overline{x},\overline{y})\left[s\frac{\overline{a}}{\overline{x}}\right]$, para $\overline{a}\in|\mf{B}|^n$, portanto $\vDash_\mf{B}\exists\overline{x}\psi(\overline{x},\overline{y})[s]$.\\
+    O outro caso é análogo, se $\vDash_\mf{B}\forall\overline{x}\varphi(\overline{x},\overline{y})[s]$, então $\vDash_\mf{B}\varphi(\overline{x},\overline{y})\left[s\tfrac{\overline{b}}{\overline{x}}\right]$, para todo $\overline{b}\in|\mf{B}|^n$, por hipótese $v:V\to|\mf{A}|$, e se vale para todo $\overline{b}\in|\mf{B}|^n$ em particular vale para todo $\overline{a}\in|\mf{A}|^n$, logo $\vDash_\mf{A}\forall\overline{x}\varphi(\overline{x},\overline{y})[s]$;\\
+    b) Seja $|\mf{A}|=\{a\}$, $|\mf{B}|=\{a,b\}$ e defina $P^\mf{A}=\emptyset$, $P^\mf{B}=\{b\}$, logo $\mf{A}\subseteq\mf{B}$, visto que $|\mf{A}|\subseteq|\mf{B}|$ e $P^\mf{A}=P^\mf{B}\vert_{|\mf{A}|}$. Assuma por contradição que exista $\varphi\in\Pi_1$ tq $\exists xPx\vDash\Dashv\varphi$, como $\vDash_\mf{B}\exists xPx$ (em particular $Pb$), então $\vDash_\mf{B}\varphi$, o \textbf{Teorema da Preservação de Łoś–Tarski} garante que $\vDash_\mf{A}\varphi$, logo $\vDash_\mf{A}\exists xPx$, contradição.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 19.} Uma fórmula $\Sigma_2$ é da forma $\exists x_1\dots x_n\theta$, com $\theta\in\Pi_1$.\\
+a) Mostre para toda sentença $\varphi\in\Sigma_2$ em uma assinatura sem símbolos de constante e função, se $\vDash_\mf{B}\varphi$, então existe $\mf{A}\subseteq\mf{B}$ finita tq $\vDash_\mf{A}\varphi$;\\
+b) Conclua que $\forall x\exists yPxy$ não é logicamente equivalente a nenhuma sentença em $\Sigma_2$.
+\end{shaded}
+
+\begin{proof}
+    a) Se $\vDash_\mf{B}\exists x_1\dots x_n\theta[s]$, então existem $d_1,\dots,d_n\in|\mf{B}|$ tq $\vDash_\mf{B}\theta\left[s\tfrac{d_1\dots d_n}{x_1\dots x_n}\right]$, defina $|\mf{A}|=\{d_1,\dots,d_n\}\subseteq|\mf{B}|$ e, para cada $P_i$ defina $P_i^\mf{A}=P_i^\mf{B}\vert_{|\mf{A}|}$, portanto $\mf{A}\subseteq\mf{B}$ e, como $\theta\in\Pi_1$, o \textbf{Teorema da Preservação de Łoś–Tarski} garante que $\vDash_\mf{A}\theta\left[s\tfrac{d_1\dots d_n}{x_1\dots x_n}\right]$, com $d_1,\dots,d_n\in|\mf{A}|$, portanto $\vDash_\mf{A}\exists x_1\dots x_n\theta[s]$;\\
+    b) Assuma por contradição que exista $\varphi\in\Sigma_2$ tq $\forall x\exists yPxy\vDash\Dashv\varphi$, portanto, como $\mf{N}=(\mbb{N},<)$ é tq $\vDash_\mf{N}\forall x\exists yPxy$, i.e., para todo $n\in\mbb{N}$, existe um $m\in\mbb{N}$ tq $n<m$, então $\vDash_\mf{N}\varphi$ e, por a), temos que existe um $\mf{A}\subseteq\mf{N}$ finito tq $\vDash_\mf{A}\varphi$, logo $\vDash_\mf{A}\forall x\exists yPxy$, o que é obviamente uma contradição em qualquer conjunto com finitos naturais, em particular, uma instância é que $\exists y(\max(|\mf{A}|)<y)$, o que é claramente falso.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 20.} Seja $\mc{S}=\{P\}$, sendo $R$ um símbolo de relação binária. Considere as $\mc{S}$-estruturas $\mf{N}=(\mbb{N},<)$ e $\mf{R}=(\mbb{R},<)$.\\
+a) Encontre uma sentença verdadeira em uma e falsa na outra;\\
+b) Mostre que para qualquer sentença $\varphi\in\Sigma_2$ se $\vDash_\mf{R}\varphi$, então $\vDash_\mf{N}\varphi$.
+\end{shaded}
+
+\begin{proof}
+    a) $\vDash_\mf{N}\varphi:=\exists x\forall y(x\neq y\to Pxy)$, mas $\nvDash_\mf{R}\varphi$, uma vez que $\mbb{N}$ é limitado inferiormente e $\mbb{R}$ não. Ademais $\vDash_\mf{R}\psi:=\forall xy\exists z(Pxy\to(Pxz\wedge Pzy))$, mas $\nvDash_\mf{N}\psi$, visto que $\mbb{R}$ é denso em si mesmo e $\mbb{N}$ não.\\
+    b) Se $\vDash_\mf{R}\exists\overline{x}\varphi(\overline{x})$ então existem $\overline{d}=d_1,\dots,d_n\in\mbb{R}$ tq $\vDash_\mf{R}\varphi(\overline{x})\left[s\tfrac{\overline{d}}{\overline{x}}\right]$, considere o automorfismo $h:\mf{R}\to\mf{R}$ que envia $\overline{d}$ para os naturais $\overline{m}=m_1,\dots,m_n$ (basta tomar $h([d_i,d_{i+1}])=[i,i+1]$, para $1<i<n-1$ e $h((-\infty,d_1])=(-\infty,1]$ e $h([d_n,\infty))=[n,\infty)$, é obviamente uma bijeção que é estritamente crescente), portanto $h\circ s\tfrac{\overline{d}}{\overline{x}}=h\circ s\tfrac{h(\overline{d})}{\overline{x}}=h\circ s\tfrac{\overline{m}}{\overline{x}}$, como $\exists\overline{x}\varphi(\overline{x})$ é uma sentença, então as únicas variáveis livres em $\varphi$ são $\overline{x}$, portanto a função $s\tfrac{\overline{m}}{\overline{x}}:V\to\mbb{N}$ concorda com $h\circ s\tfrac{\overline{m}}{\overline{x}}$ em todas variáveis livres de $\varphi$, logo $\vDash_\mf{R}\varphi(\overline{x})\left[s\frac{\overline{m}}{\overline{x}}\right]$. Pelo \textbf{Teorema da Preservação de Łoś–Tarski}, como $\varphi\in\Pi_1$ e $\mf{N}\subseteq\mf{R}$ ($\mbb{N}\subseteq\mbb{R}$ e $<^\mf{N}=<^\mf{R}\vert_{\mbb{N}}$), então $\vDash_\mf{N}\varphi(\overline{x})\left[s\tfrac{\overline{d}}{\overline{x}}\right]$, i.e., $\vDash_\mf{N}\exists\overline{x}\varphi(\overline{x})$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 21.} Podemos enriquecer a linguagem adicionando um quantificador adicional. A fórmula $\exists!x\alpha$ (lê-se "há um único $x$ tq $\alpha$) tem $(\mf{A},s)$ como modelo sse existe um único $a\in|\mf{A}|$ tq $\vDash_\mf{A}\alpha\left[s\tfrac{a}{x}\right]$. Prove que esse aparentem enriquecimento é, na verdade, redundante, no sentido de que podemos encontrar uma fórmula ordinária na lógica equivalente a $\exists!x\alpha$.
+\end{shaded}
+
+\begin{proof}
+    Considere $\varphi=\exists x(\alpha(x)\wedge\forall y(\alpha(y)\to x=y))$, é fácil ver que $\vDash_\mf{A}\varphi$ sse existe um $a\in|\mf{A}|$ tq $\vDash_\mf{A}\alpha(x)\left[s\frac{a}{x}\right]$ e, para todo $d\in|\mf{A}|$ tq $\vDash_\mf{A}\alpha(x)\left[s\frac{d}{x}\right]$ temos $d=a$, portanto há um único $a$ que satisfaz $\alpha$.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} Para $n\geq1$ podemos definir, analogamente, "existem no máximo $n$ tq $\varphi$" ($\exists^{\leq n})$ e "existem exatamente $n$ tq $\varphi$" ($\exists^{=n}$) como:
+$$\exists^{\leq n}v\varphi(v):=\exists v_1\dots v_n\left(\bigwedge_{1\leq i\leq n}\varphi(v_i)\wedge\forall v\left(\varphi(v)\rightarrow\bigvee_{1\leq j\leq n}v=v_j\right)\right)$$
+$$\exists^{=n}v\varphi(v):=\exists v_1\dots v_n\left(\bigwedge_{x,y\in\{1,\dots,n\}}v_x\neq v_y\wedge\bigwedge_{1\leq i\leq n}\varphi(v_i)\wedge\forall v\left(\varphi(v)\rightarrow\bigvee_{1\leq j\leq n}v=v_j\right)\right)$$
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 22.} Seja $\mf{A}$ uma estrutura e $h$ uma função tq $\text{ran}(h)=|\mf{A}|$, mostre que existe uma estrutura $\mf{B}$ tq $h$ é um homomorfismo sobrejetor de $\mf{B}$ em $\mf{A}$.
+\end{shaded}
+
+\begin{proof}
+    Tomando uma das formas de $\msf{AC}$, em particular a que para qualquer relação $R$, existe uma função $H\subseteq R$ tq $\text{dom}(H)=\text{dom}(R)$, tome $R=h^{-1}$, portanto existe $H\subseteq h^{-1}$ com $\text{dom}(H)=\text{dom}(h^{-1})=|\mf{A}|$, logo dado qualquer $a\in|\mf{A}|$, $(a,H(a))\in h^{-1}$, i.e., $(H(a),a)\in h$, portanto $h(H(a))=a$. Defina $|\mf{B}|:=\text{dom}(h)$ e
+    \begin{align*}
+        c^\mf{B} & :=H(c^\mf{A});\\
+        P^\mf{B} & :=\{(x_1,\dots,x_n)\in|\mf{B}|^n\mid (h(x_1),\dots,h(x_n))\in P^\mf{A}\};\\
+        f^\mf{B} & :=\underbrace{\{(H(x_m),\dots,H(x_m))\in|\mf{B}|^m\mid (x_1,\dots,x_m)\in f^\mf{A}\}}_{f_1}\cup f_2.
+    \end{align*}
+    onde $f_2=\{(x,y)\in|\mf{B}|^2\mid (H(h(x)),y)\in f_1\}$. Obviamente $f_1$ é uma função em $\text{ran}(H)$, visto que $H$ também é, entretanto $f_1$ não é necessariamente uma função em $|\mf{B}|$, visto que $H$ nem sempre é sobrejetora, portanto $f_2$ cobre os pontos restantes, associando cada ponto $x\in|\mf{B}|$, a um único ponto $y$ tq $f(H(h(x)))=y$, i.e., envia $x$ ao mesmo ponto único escolhido por $H$ na fibra que $x$ pertence.\\
+    Basta agora provarmos que $\mf{B}$ é definido de tal forma que $h:|\mf{B}|\to|\mf{A}|$ é um homomorfismo: $h(c^\mf{B})=h(H(c^\mf{A}))=c^\mf{A}$; se $(b_1,\dots,b_n)\in P^\mf{B}$, por def. $(h(b_1),\dots,h(b_n))\in P^\mf{A}$, para $(a_1,\dots,a_n)\in P^\mf{A}$, como $h$ é sobrejetora existem $x_1,\dots,x_n\in|\mf{B}|$ tq $h(x_i)=a_i$, logo, como $(h(x_1),\dots,h(x_n))\in P^\mf{A}$, por def. $(x_1,\dots,x_n)\in P^\mf{B}$; Seja $\overline{b}\in|\mf{B}|^n$, considere $X=\{\overline{x}\in|\mf{B}|^n\mid h(\overline{x})=h(\overline{b})\}$ (onde $h(\overline{x})=(h(x_1),\dots,h(x_n))$, como $h(\overline{b})\in|\mf{A}|^n$, existe $y\in X$ tq $H(h(\overline{b}))=y$, logo se $f^\mf{A}(h(\overline{b}))=m$, então por def. $(H(h(\overline{b})),H(m))\in f_1$, e $f_2$ garante que para todo $k\in X$ temos $(H(h(\overline{k})),H(m))=(H(h(\overline{b})),H(m))\in f_1$, logo $(\overline{k},H(m))\in f_2$ e, portanto, todo elemento em $X$ (uma das fibras de $h^{-1}$) está definido em $f^\mf{B}$, portanto $f^\mf{B}$ é uma função em $\mf{B}$
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} É interessante notar que se $F:A\to B$, com $A\neq\emptyset$, então $\msf{ZF}$ prova que:\\
+a) Existe uma função $G:B\to A$ tq $G\circ F=\text{id}_A$ sse $F$ é injetora;\\
+b) Se existe uma função $H:B\to A$ tq $F\circ H=\text{id}_B$, então $F$ é sobrejetora.\\
+Mas, talvez não surpreendentemente, precisamos de $\msf{AC}$ para provar a conversa de b). Uma vez que $F$ não é necessariamente injetiva, $F^{-1}$ não será uma função, portanto $\msf{AC}$ nos garante que podemos escolher, para cada $y\in B$, um $x\in A$ tq $f(x)=y$, é por isso que o exercício acima, sobre a hipótese de que $h$ é sobrejetora, não garante sem $\msf{AC}$ que existe uma função inversa à direita de $h$.\\
+Ademais, o resultado do Exercício anterior garante que, como $h$ é um homomorfismo sobrejetor, então o \textbf{Teorema do Homomorfismo} garante que $\vDash_\mf{A}\varphi[s]$ sse $\vDash_\mf{B}\varphi[h\circ s]$ onde $\varphi$ não contém o símbolo de igualdade, i.e., para qualquer estrutura $(\mf{A},s)$, existe uma extensão elementarmente equivalente para fórmulas sem igualdade para uma estrutura $(\mf{B},h\circ s)$ com qualquer cardinalidade, que seria um caso mais fraco do \textbf{Teorema de Löwenheim-Skolem Ascendente}.
+
+Deixaremos uma pequena prova da volta de a), i.e., se $g:A\to B$ é injetora, então existe $G:B\to A$ tq $G\circ g=\text{id}_A$, visto que a utilizaremos nos próximos exercícios:\\
+Seja $g$ uma função injetora, então $g^{-1}:\text{ran}(g)\to|\mf{A}|$ é uma função. A ideia é extendê-la a uma $G$ definida em $|\mf{B}|$. Como $|\mf{A}|\neq\emptyset$ existe um $a\in|\mf{A}|$, logo $G:=g^{-1}\cup(|\mf{B}|\backslash\text{ran}(g))\times\{a\}$ satisfaz o que queremos, visto que associa cada ponto fora $\text{ran}(g)$ a $a$.
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 23.} Seja $\mf{A}$ uma estrutura e $g$ uma função injetora com $\text{dom}(g)=|\mf{A}|$, mostre que há uma única estrutura $\mf{B}$ tq $g$ é um isomorfismo de $\mf{A}$ em $\mf{B}$.
+\end{shaded}
+
+\begin{proof}
+    Pela observação anterior sabemos que, por $g:|\mf{A}|\to\text{ran}(g)$ ser injetora, existe uma função $G$ tq $G\circ g=\text{id}_{|\mf{A}|}$, portanto basta, de forma análoga ao exercício anterior, definir $\mf{B}$ tq $|\mf{B}|=\text{ran}(g)$ da seguinte forma:
+    \begin{align*}
+        c^\mf{B} & := g(c^\mf{A});\\
+        f^\mf{B}(b_1,\dots,b_n) & := g\left(f^\mf{A}(G(b_1),\dots,G(b_n))\right);\\
+        (b_1,\dots,b_n)\in P^\mf{B} & \text{ sse } (G(b_1),\dots,G(b_n))\in P^\mf{A}.
+    \end{align*}
+    As verificações de que $g$ é um homomorfismo são triviais, por definição $g(c^\mf{A})=c^\mf{B}$; temos que $(g(a_1),\dots,g(a_n))\in P^\mf{B}$ sse $(G\circ g(a_1),\dots,G\circ g(a_n))=(a_1,\dots,a_n)\in P^\mf{A}$ e, por fim
+    \begin{align*}
+        f^\mf{B}(g(a_1),\dots,g(a_n)) & =g\left(f^\mf{A}(G\circ g(a_1),\dots,G\circ g(a_n))\right)\\
+        & =g\left(f^\mf{A}(a_1,\dots,a_n)\right)    
+    \end{align*}
+    como $g$ é injetora e $\text{ran}(g)=|\mf{B}|$, então ela é também sobrejetora, logo é um isomorfismo. O fato de que $g$ é um isomorfismo implica que $G=g^{-1}$ é uma função e é única, portanto a estrutura $\mf{B}$ definida por ela também é, diferente do exercício anterior que depende da escolha que fazemos para $H$. As verificações adicionais como o fato de que $f^\mf{B}$ é uma função em $|\mf{B}|$ são triviais e serão omitidas.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 24.} Seja $h$ um homomorfismo injetor de $\mf{A}$ em $\mf{B}$, mostre que existe uma estrutura $\mf{C}$ com $\mf{C}\cong\mf{B}$ e tq $\mf{A}\subseteq\mf{C}$.
+\end{shaded}
+
+\begin{proof}
+    Utilizando como base a ideia da prova da conversa de a) da observação do \textbf{Exercício 22.}, se $h$ é injetora, então $h:|\mf{A}|\to\text{ran}(h)$ é uma função bijetora, logo $h^{-1}:\text{ran}(h)\to|\mf{A}|$ é também uma bijeção, vamos expandir $h^{-1}$ para $G$, mas de forma que, para cada $x\in|\mf{B}|\backslash\text{ran}(h)$, $G$ vai associar $x$ a um único $y\notin A$ de forma que $G$ será também injetora. Metateoricamente essa é uma tarefa fácil, conjunto-teoréticamente isso pode ser feito definindo $A_0:=\{|\mf{A}|\}$, $A_n:=A_{n-1}\cup\{A_{n-1}\}$, e repetindo o mesmo processo da construção dos ordinais, mas com $A_0$ no lugar de $\emptyset$ como nosso urelemento. O fato é que o Axioma da Fundação garante que $|\mf{A}|$ é diferente de qualquer ordinal definido dessa forma. Além disso, ele junto com o Axioma da Substituição garantem que todo conjunto é isomorfo a um ordinal, em particular existe uma bijeção $f:|\mf{B}|\backslash\text{ran}(h)\to X$, onde $X\neq|\mf{A}|$ é um dos novos ordinais, portanto a função $h^{-1}\cup f:|\mf{B}|\to X\cup\{|\mf{A}|\}$ é injetora e o \textbf{Exercício 23.} garante que existe uma única estrutura $\mf{C}\cong\mf{B}$ tq $|\mf{C}|=X\cup\{|\mf{A}|\}\supseteq|\mf{A}|$, é fácil ver, portanto, que $\mf{A}\subseteq\mf{C}$.\\
+    \textcolor{red}{PENDENTE} \textbf{(Provavelmente tem um jeito mais fácil de resolver)}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 25.} Considere uma $\mc{S}$-estrutura fixa $\mf{A}$. Expanda $\mc{S}$ para $\mc{S}^+:=\mc{S}\cup\{c_a\mid a\in|\mf{A}|\}$ e seja $\mf{A}^+$ uma $\mc{S}^+$-estrutura tq $c_a^{\mf{A}^+}=a$ e concorde com a interpretação em $\mf{A}$ dos outros símbolos em $\mc{S}$. Uma relação $R$ é dita ser \textit{definível com parâmetros} em $\mf{A}$ sse $R$ é definível em $\mf{A}^+$. Seja $\mf{R}=(\mbb{R},<,+,\cdot)$:\\
+a) Mostre que se $A\subseteq\mbb{R}$ é a união finita de intervalos, então $A$ é definível com parâmetros em $\mf{R}$;\\
+b) Assuma que $\mf{A}\equiv\mf{R}$, mostre que qualquer subconjunto de $\mf{A}$ não-vazio, limitado (utilizando $<^\mf{A}$) e definível com parâmetros em $\mf{A}$ possui um supremo em $|\mf{A}|$.
+\end{shaded}
+
+\begin{proof}
+    a) Para $I=(a,b]$, como $a,b\in\mbb{R}$, então existem $c_a,c_b\in\mc{S}$, portanto:
+    $$\varphi_I(x):=c_a<x\wedge (x<c_b\vee x=c_b)$$ define $I$. O caso para $(a,b),[a,b)$ e $[a,b]$ é análogo, portanto se $A=I_1\cup\dots\cup I_n$, então a fórmula $\varphi=\bigvee_{1\leq i\leq n}\varphi_{I_i}(x)$ define $A$.\\
+    b) Se $A\subseteq|\mf{A}|$ é não-vazio e limitado superiormente, e se $A$ for definível por $A=\{x\in|\mf{A}|\mid\vDash_\mf{A}\varphi[\![x]\!]\}$, então, se $\psi(x)="x\in B(B\neq\emptyset)\text{ e }B\text{ é limitado superiormente}"$ e $\chi(x)=(x=\sup(B))$, então $\vDash_\mf{A}\psi(a)$, para algum $a\in|\mf{A}|$. Visto que $\mf{R}$ satisfaz completude, então 
+    $$\vDash_\mf{R}\forall x(\psi(x)\to\exists y(\chi(y)))$$
+    i.e., se $B$ é não-vazio e limitado superiormente, o supremo existe. Como $\mf{A}\equiv\mf{R}$, então $$\vDash_\mf{A}\forall x(\psi(x)\to\exists y(\chi(y)))$$
+    em particular $\vDash_\mf{A}(\psi(a)\to\exists y(\chi(y)))$, uma instância em $a$, logo $\vDash_\mf{A}\exists y(\chi(y))$.
+
+    As fórmulas $\psi(x)$ e $\chi(x)$ podem ser formuladas como:
+    $$\psi(x):=\exists x(\varphi(x))\wedge\exists y\forall x(\varphi(x)\to x\leq y)$$
+    $$\chi(s):=\forall yx((\varphi(x)\to x\leq y)\to s\leq y)\wedge\forall y(\varphi(y)\to y\leq s)$$
+    onde, intuitivamente $\psi$ expressa que há no mínimo um $x$ em $B$ e que há um $y$ tq para todo $x\in B$, $y$ é uma cota superior de $B$ ($x\leq y$). $\chi$ por sua vez expressa que para todo $y$ que é uma cota superior de $B$ temos $s\leq y$ e, além disso, que $s$ é uma cota superior de $B$, portanto é claro que $\chi(s)$ expressa que $s$ é a menor das cotas.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 26.} a) Seja $\mf{A}$ uma estrutura fixa, defina seu \textit{tipo elementar} como $\mf{t}(\mf{A}):=\{\mf{B}\mid\mf{B}\equiv\mf{A}\}$. Mostre que $\mc{K}=\mf{t}(\mf{A})$ é $EC_\Delta$;\\
+b) Uma classe $\mc{K}$ é dita ser \textit{elementarmente fechada} ou $ECL$ se, sempre que $\mf{A}\in\mc{K}$, $\mf{t}(\mf{A})\subseteq\mc{K}$. Mostre que toda classe $ECL$ é a união de classes $EC_\Delta$;\\
+c) Conversamente, mostre que toda classe que é a união de classes $EC_\Delta$ é $ECL$.
+\end{shaded}
+
+\begin{proof}
+    a) Considere $\text{Th}(\mf{A})=\{\varphi\in\mc{L}^\mc{S}\mid\vDash_\mf{A}\varphi\}$, portanto $\mf{B}\in\mf{t}(\mf{A})$ sse ($\vDash_\mf{A}\varphi$ sse $\vDash_\mf{B}\varphi$), i.e., $\text{Th}(\mf{A})=\text{Th}(\mf{B})$, que é equivalente a $\mf{B}\in\text{Mod}^\mc{S}\left(\text{Th}(\mf{A})\right)$, visto que $\vDash_\mf{B}\text{Th}(\mf{B})=\text{Th}(\mf{A})$. Logo $\mf{t}(\mf{A})=\text{Mod}^\mc{S}\left(\text{Th}(\mf{A})\right)$\\
+    b) Como $\equiv$ é uma relação de equivalência entre estruturas, considere o conjunto quociente $\bigslant{\mc{K}}{\equiv}$, obviamente se temos $[\mf{A}]\in\bigslant{\mc{K}}{\equiv}$, então $\mf{B}\in[\mf{A}]$ sse $\mf{B}\equiv\mf{A}$, como $\mc{K}$ é $ECL$, então em particular todo $\mf{B}\equiv\mf{A}$ está em $\mc{K}$, i.e., $\mf{t}(\mf{A})\subseteq\mc{K}$, portanto $\mf{B}\in\mf{t}(\mf{A})$ sse $\mf{B}\equiv\mf{A}$ sse $\mf{B}\in[\mf{A}]$, logo $\mf{t}(\mf{A})=[\mf{A}]$. Sob posse de $\msf{AC}$, considere a função $h:\mc{K}\to\bigslant{\mc{K}}{\equiv}$ definida como $h(\mf{A})=[\mf{A}]$, sabemos portanto que existe uma função $f\subseteq h^{-1}$ tq $\text{dom}(f)=\bigslant{\mc{K}}{\equiv}$, uma função de escolha, portanto
+    $$\mc{K}=\bigcup_{\mf{A}~\in~\text{ran}(f)}\mf{t}(\mf{A})=\bigcup_{\mf{A}~\in~\text{ran}(f)}\text{Mod}^\mc{S}\left(\text{Th}(\mf{A})\right)$$
+    onde cada $\mf{t}(\mf{A})$ é $EC_\Delta$.\\
+    c) Se $\mc{K}=\bigcup_{\Sigma\in X}\text{Mod}(\Sigma)$, então $\mf{A}\in\mc{K}$ implica que $\vDash_\mf{A}\Sigma$, para algum $\Sigma\in X$, obviamente se $\mf{B}\equiv\mf{A}$, então, por def. $\vDash_\mf{B}\Sigma$, logo $\mf{B}\in\text{Mod}^\mc{S}(\Sigma)$, i.e., $\mf{B}\in\mc{K}$, o que prova que $\mf{t}(\mf{A})\subseteq\mc{K}$. Em particular, b) e c) juntos provam que $EC_{\Delta\Sigma}=ECL$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 27.} Seja $\mc{S}=\{P\}$ com $P$ um símbolo de relação binária. Liste todas as estruturas não-isomórficas de tamanho 2.
+\end{shaded}
+
+\begin{proof}
+    Como $P^\mf{A}\subseteq|\mf{A}|^2$, e $|\mf{A}|$ contém 2 elementos, então basta testar todos $P\in\mathcal{P}(|\mf{A}|^2)$, i.e., $2^4=16$ possibilidades, e listar as que são não-isomórficas.\\
+    \textcolor{red}{PENDENTE (Trivial)}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 28.} Para cada par de estruturas a seguir, mostre que eles não são elementarmente equivalentes:\\
+a) $\mf{R}=(\mbb{R},\times)$ e $\mf{R}^*=(\mbb{R}^*,\times^*)$;\\
+b) $\mf{N}=(\mbb{N},+)$ e $\mf{Z}=(\mbb{Z}^+,+^*)$;\\
+c) Para cada uma das quatro estruturas aprensetadas, construa uma sentença verdadeira em uma e falsa nas outras três.
+\end{shaded}
+
+\begin{proof}
+    a) Se $\varphi:=\exists x\forall y(x\cdot y=x)$, então $\vDash_\mf{R}\varphi$, mas $\nvDash_{\mf{R}^*}\varphi$, intuitivamente $\varphi$ expressa que $0$ existe;\\
+    Se $\psi:=\neg\varphi$, então $\vDash_{\mf{R}^*}$, mas $\nvDash_{\mf{R}}\varphi$, intuitivamente $\psi$ expressa que $0$ não existe;\\
+    b) Se $\chi:=\exists x\forall y(x + y = y)$, então $\vDash_\mf{N}\chi$, mas $\nvDash_\mf{Z}\chi$, intuitivamente $\chi$ expressa que 0 existe;\\
+    Se $\gamma:=\neg\chi$, então $\vDash_\mf{Z}\gamma$, mas $\nvDash_\mf{N}\gamma$, intuitivamente $\gamma$ expressa que $0$ não existe.\\
+    c) $\mf{R}$: Note que $\varphi$ se interpretada em $\mf{N}$ diz que existe um $x$ tq $x+y=x$ para todo $y\in\mbb{N}$, o que é claramente falso, é fácil ver que em $\mf{Z}$ também;\\
+    $\mf{R}^*$: A estrutura $(\mbb{R}^*,\times^*,1)$ é a única das 4 que é um grupo, todas $\mf{N},\mf{Z},\mf{R}$ falham em ter inversa, portanto $\psi':=\forall x\exists y(x\cdot y=x)$ só é verdadeira em $\mf{R}^*$;\\
+    $\mf{N}$: Algumas propriedades algébricas apresentadas por $\mf{R}$ e $\mf{R}^*$ que $\mf{N}$ não possui é a de que todo elemento da última possui inversa, e um único elemento da primeira não, portanto:
+    $$\varphi := \exists x(\forall y(x\cdot y=y)\wedge\exists!y\nexists z(y\cdot z=x))$$
+    é tq $\vDash_{\mf{R},\mf{R}^*,\mf{Z}}(\varphi\vee\psi'\vee\gamma)$, mas $\nvDash_\mf{N}(\varphi\vee\psi'\vee\gamma)$.\\
+    $\mf{Z}$: $\gamma$ se interpretada em $\mf{R}$ diz que não existe $x$ tq $x\times y=y$ para todo $y\in\mbb{R}$, o que é claramente falso, $x=1$ satisfaz, o mesmo raciocínio se aplica a $\mf{R}^*$, logo $\gamma$ só é verdadeira em $\mf{Z}$.
+\end{proof}
+
+\colorlet{shadecolor}{green!25}
+\begin{shaded}
+\textbf{Exercício Bônus.} Para cada $n\in\mbb{N}$, construa um modelo $\mf{A}_n$ em uma linguagem $\mc{L}^\mc{S}$ tq $\mc{S}$ é finito, onde exatamente $n$ elementos de $|\mf{A}|$ não são definíveis, i.e., existem $a_1,\dots,a_n\in|\mf{A}|$ tq, para cada $1\leq i\leq n$, não existe $\varphi$ tq $\{a_i\}=\{x\in|\mf{A}|\mid\varphi(x)\}$.
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{proof}
+    Para $n=0$ basta tomar $|\mf{A}_0|=\emptyset$, portanto todo subconjunto é definível por vacuidade, caso não seja permitido estruturas com domínio vazio basta tomarmos $|\mf{A}_0|=\{a\}$ e $c\in\mc{S}$ tq $c^{\mf{A}_0}=a$, logo $\{a\}=\{x\in|\mf{A}_0|\mid x=c\}$. Para $n>1$ note que $|\mf{A}_n|=\{x_1,\dots,x_n\}$ não possui nenhum elemento definível, assuma por contradição que $x_i$ é definível por $\varphi$, logo o teorema do homomorfismo garante que qualquer permutação $h:|\mf{A}_n|\to|\mf{A}_n|$ é tq se $\{x_i\}$ é definível, para todo $x\in\{x_i\}$ temos $h(x)\in\{x_i\}$, portanto se $R\neq\emptyset$ é definível, então $R=|\mf{A}_n|$, portanto em $\mf{A}_n$ é impossível definir todos seus elementos, i.e., possui exatamente $n$ elementos indefiníveis.\\
+    Note que o raciocínio anterior não vale para $n=1$, visto que o único automorfismo de $\{x\}$ em $\{x\}$ é a identidade, considere portanto $\mf{A}_1=(\omega+1,0,R,<)$, onde $0^{\mf{A}_1}=0$ e $R=\{(i,i+1)\mid i\in\mbb{N}\}$, portanto podemos definir $\{0\}=\{x\mid x=0\}$, $\{1\}=\{x\mid R0x\}$, $\{2\}=\{x\mid \exists y(R0y\wedge Ryx)\}$, ... Em geral, temos $\{n\}=\{x\mid\exists x_1(R0x_1\wedge\exists x_2(Rx_1x_2\wedge\dots\exists x_{n-1}(Rx_{n-1}x)\dots)\}$, portanto todo $n\in\omega$ é definível, mas $\omega\in\omega+1$ não é.
+\end{proof}
+
+\subs{3}{Um Algoritmo de Análise}
+
+\begin{shaded}
+\textbf{Exercício 1.} Mostre que para qualquer segmento inicial próprio $\alpha'$ de uma wff $\alpha$, temos $K(\alpha')<1$.
+\end{shaded}
+
+\begin{proof}
+    \textbf{Lema. 1. Para qualquer wff $\alpha$, $K(\alpha)=1$.} \textit{Proof.} Caso base: se $\alpha=(t_1=t_2)$, por def.
+    \begin{align*}
+        K(\alpha) & = K(() + K(t_1) + K(=) + K(t_2) + K())\\
+        & = -1 + 1 - 1 + 1 + 1\\
+        & = 1.
+    \end{align*}
+    se $\alpha=(Pt_1\dots t_n)$, temos também por def.
+    \begin{align*}
+        K(\alpha) & = K(() + K(P) + K(t_1) + \dots + K(t_n) + K())\\
+        & = -1 + (1 - n) + n + 1\\
+        & = 1.
+    \end{align*}
+    Assuma como hipótese indutiva que para cada wff $\alpha$ temos $K(\alpha)=1$, logo, como passo indutivo:\\
+    Se $\alpha=(\varphi\wedge\psi)$, então
+    \begin{align*}
+        K(\alpha) & = K(() + K(\varphi) + K(\wedge) + K(\psi) + K())\\
+        & = -1 + 1 - 1 + 1 + 1\\
+        & = 1.
+    \end{align*}
+    Para $\alpha=(\neg\varphi)$
+    \begin{align*}
+        K(\alpha) & = K(() + K(\neg) + K(\varphi) + K())\\
+        & = -1 + 0 + 1 + 1\\
+        & = 1.
+    \end{align*}
+    Por fim, se $\alpha=(\forall x\varphi)$, então
+    \begin{align*}
+        K(\alpha) & = K(() + K(\forall) + K(x) + K(\varphi) + K())\\
+        & = -1 - 1 + 1 + 1 + 1\\
+        & = 1.
+    \end{align*}
+
+    Agora é fácil mostrar que para todo segmento inicial próprio $\alpha'$ de $\alpha$ temos $K(\alpha')<1$. Se $\alpha$ for $(t_1=t_2)$ ou $(Pt_1\dots t_n)$ é fácil ver que para qualquer segmento inicial $\alpha'$ temos $K(\alpha')<1$, assuma portanto como hipótese indutiva que vale para qualquer wff, logo se $\alpha=(\varphi\wedge\psi)$, basta testarmos seus possíveis segmentos iniciais próprios: $($, $(\varphi'$, $(\varphi$, $(\varphi\wedge$, $(\varphi\wedge\psi'$, $(\varphi\wedge\psi$, onde $\varphi'$ e $\psi'$ são segmentos iniciais próprios de $\varphi$ e $\psi$, respectivamente, é fácil ver, utilizando a hipótese indutiva, que cada qual é tq $K(\alpha')<1$, o caso para os outros símbolo lógicos é análogo. 
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} Seja $\varepsilon$ uma expressão consistindo de variáveis, símbolos de constantes e funções. Mostre que $\varepsilon$ é um termo sse $K(\varepsilon)=1$ e que para todo segmento terminal próprio $\varepsilon'$ de $\varepsilon$ temos $K(\varepsilon')>0$.
+\end{shaded}
+
+\begin{proof}
+    Se $\varepsilon$ for um termo, sabemos que $K(\varepsilon)=1$, assuma portanto que $K(\varepsilon)=1$, teríamos que mostrar que $\varepsilon$ é um termo, entretanto $\varepsilon=v_1\dots v_nf$ satisfaz $K(\varepsilon)=1$, mas não é um termo (wtf).\\
+    Seja agora $\varepsilon'$ um segmento terminal próprio de $\varepsilon$, logo $\varepsilon = \varepsilon_1+\varepsilon'$ com $\varepsilon_1$ um segmento inicial próprio de $\varepsilon$, queremos mostrar que $K(\varepsilon')>0$, se $\varepsilon$ for uma concatenção de símbolos quaisquer como no caso anterior, então isso não é necessariamente verdade, tome $\varepsilon=v_1\dots v_nf$ novamente, então $f$ é um segmento terminal próprio de $\varepsilon$ e, se for $n$-ária, com $n>1$, então $K(f)<0$. Assuma portanto que $\varepsilon$ seja um termo, logo sabemos que $K(\varepsilon_1)<1$, visto que é um segmento inicial próprio, logo $K(\varepsilon')=K(\varepsilon)-K(\varepsilon_1)>0$.
+\end{proof}
+
+\subs{4}{Um Cálculo Dedutivo}
+
+\textcolor{red}{PENDENTE}
+
+\begin{shaded}
+\textbf{Exercício 3.} a) Seja $\mf{A}$ uma estrutura e $s:V\to|\mf{A}|$. Defina $v$ no conjunto de fórmulas primas por
+$$v(\alpha)=\top\text{ sse }\vDash_\mf{A}\alpha[s]$$
+e prove que para qualquer wff $\alpha$, $\overline{v}(\alpha)=\top$ sse $\vDash_\mf{A}\alpha[s]$;\\
+b) \textbf{Correção Fraca.} Conclua que se $\Gamma\vDash_S\varphi$ (implica tautologicamente), então $\Gamma\vDash_F\varphi$ (implica logicamente).
+\end{shaded}
+
+\begin{proof}
+    a) Obviamente para cada fórmula prima $\alpha$ temos que $\overline{v}(\alpha)=v(\alpha)=\top$ por hipótese, provando portanto o caso base. Assuma agora que valha para $\varphi$ e $\psi$, portanto $\overline{v}(\varphi\to\psi)=\top$ sse se $\overline{v}(\varphi)=\top$, então $\overline{v}(\psi)=\top$, pela hipótese indutiva isso é equivalente a se $\vDash_\mf{A}\varphi[s]$, então $\vDash_\mf{A}\psi[s]$, i.e., $\vDash_\mf{A}(\varphi\to\psi)[s]$.\\
+    b) Com isso é fácil concluir que se existe um $v$ que satisfaz cada fórmula em $\Gamma$, no sentido da lógica sentencial, então ele satisfaz também $\varphi$ no mesmo sentido, podemos concluir que isso também vale no sentido da lógica de primeira ordem.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 12.} \textbf{Teorema de Lindenbaum.} Prove que todo conjunto consistente de fórmulas $\Gamma$ pode ser estendido a um conjunto consistente e completo (ou maximal) $\Delta$. 
+\end{shaded}
+
+\begin{proof}
+    Seja $\Gamma$ consistente, como a linguagem é contável, enumere as wffs em $\varphi_1,\varphi_2,\dots$ e defina $\Delta_0:=\Gamma$ e
+    $$\Delta_n:=\begin{cases}
+        \Delta_{n-1}\cup\{\varphi_n\}\text{ se }\text{Con}(\Delta_{n-1}\cup\{\varphi_n\});\\
+        \Delta_{n-1}\cup\{\neg\varphi_n\}\text{ caso contrário.}
+    \end{cases}$$
+    logo $\Delta:=\bigcup_{i\geq0}\Delta_i$, obviamente para cada $\varphi_i$ teremos $\varphi_i\in\Delta_i\subseteq\Delta$ ou $\neg\varphi_i\in\Delta_i\subseteq\Delta$, portanto $\Delta$ é completo. Assuma por contradição que $\text{Inc}(\Delta)$, logo $\Delta\vdash\beta\wedge\neg\beta$, i.e., existe uma sequência finita de fórmulas $(\psi_1,\dots,\psi_n,\beta\wedge\neg\beta)$ tq cada $\psi_i\in\Delta\cup\Lambda$ ou foi obtida por $\msf{MP}$ de fórmulas anteriores, seja $\Psi$ o conjunto de $\psi_i\in\Delta\cup\Lambda$, portanto existe $\Delta_i$ tq $\Psi\subseteq\Delta_i\cup\Gamma$, bastando, portanto, repetir a prova de $\beta\wedge\neg\beta$, logo $\Delta_i\vdash\beta\wedge\neg\beta$, i.e., $\text{Inc}(\Delta_i)$, contradição.
+\end{proof}
+
+\subs{5}{Teorema da Correção e Completude}
+
+\begin{shaded}
+\textbf{Exercício 1.} (Regra Semântica $\msf{EI}$) Assuma que o símbolo de constante $c$ não ocorra em $\varphi,\psi$ ou $\Gamma$, e que $\Gamma\cup\{\varphi\tfrac{c}{x}\}\vDash\psi$. Prove, sem utilizar Correção e Completude, que $\Gamma\cup\{\exists x\varphi\}\vDash\psi$.
+\end{shaded}
+
+\begin{proof}
+    Sabemos pelo Teorema da Dedução em $\vDash$ que $\Gamma\cup\{\varphi\tfrac{c}{x}\}\vDash\psi$ sse $\Gamma\vDash\varphi\tfrac{c}{x}\to\psi$, i.e., se $\mf{A}$ é tq $\vDash_\mf{A}\gamma[s],\gamma\in\Gamma$, então $\vDash_\mf{A}(\varphi\tfrac{c}{x}\to\psi)[s]$, sendo este último equivalente a: se $\vDash_\mf{A}\varphi\tfrac{c}{x}[s]$, então $\vDash_\mf{A}\psi[s]$, basta mostrarmos que $\vDash_\mf{A}\varphi\tfrac{c}{x}[s]$ é equivalente a $\vDash_\mf{A}\exists x\varphi[s]$. O Lema da Substituição garante, portanto, que $\vDash_\mf{A}\varphi\tfrac{c}{x}[s]$ sse $\vDash_\mf{A}\varphi\left[s\tfrac{\overline{s}(c)}{x}\right]$, i.e., $\vDash_\mf{A}\varphi\left[s\tfrac{c^\mf{A}}{x}\right]$, logo existe um $d=c^\mf{A}\in|\mf{A}|$ tq $\vDash_\mf{A}\varphi\left[s\tfrac{d}{x}\right]$, logo, por definição, $\vDash_\mf{A}\exists x\varphi[s]$, o que termina a prova.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} Prove que $\msf{Con}(\Phi)\Rightarrow\msf{Sat}(\Phi)$ é equivalente a $\Phi\vDash\varphi\Rightarrow\Phi\vdash\varphi$.
+\end{shaded}
+
+\begin{proof}
+    ($\Leftarrow$) Se $\msf{Con}(\Phi)$, por definição $\Phi\nvdash\beta\wedge\neg\beta$, portanto a conversa do Teorema da Completude garante que $\Phi\nvDash\beta\wedge\neg\beta$, que é equivalente a $\msf{Sat}(\Phi\cup\{\beta\vee\neg\beta\})$, uma vez que $\vDash\beta\vee\neg\beta$, então $\Phi\cup\{\beta\vee\neg\beta\}$ é satisfatível sse $\Phi$ também é.\\
+    ($\Rightarrow$) Se $\Phi\vDash\varphi$, então $\neg\msf{Sat}(\Phi\cup\{\neg\varphi\})$, portanto $\neg\msf{Con}(\Phi\cup\{\neg\varphi\})$, i.e., $\Phi\cup\{\neg\varphi\}\vdash\beta\wedge\neg\beta$, logo, por contrapositiva, $\Phi\cup\{\beta\vee\neg\beta\}\vdash\varphi$, pelo teorema da dedução $\Phi\vdash(\beta\vee\neg\beta)\to\varphi$, obviamente $\beta\vee\neg\beta$ é uma tautologia, logo $\Phi\vdash\beta\vee\neg\beta$, por modus ponens temos $\Phi\vdash\varphi$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 3.} Assuma que $\Gamma\vdash\varphi$, e seja $P$ um símbolo de relação que não ocorre nem em $\Gamma$, nem em $\varphi$, prove que existe uma dedução de $\varphi$ por $\Gamma$ em que $P$ não ocorre em nenhum passo.
+\end{shaded}
+
+\begin{proof}
+    Se $\Gamma\vdash\varphi$, Correção garante que $\Gamma\vDash\varphi$, basta provar o fato trivial de que se em uma assinatura $\mc{S}$ tq $P\in\mc{S}$ temos $\Gamma\vDash\varphi$, então o mesmo vale em $\mc{S}'=\mc{S}\backslash\{P\}$, i.e., as estruturas concordam nas sentenças que não possuem $P$.\\
+    \textcolor{red}{PENDENTE (Trivial)}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 4.} Seja $\Gamma=\{\neg\forall v_1Pv_1,Pv_2,Pv_3,\dots\}$, prove que $\msf{Con}(\Gamma)$.
+\end{shaded}
+
+\begin{proof}
+    Seja $|\mf{A}|=V$, o conjunto de variáveis e $P^\mf{A}=V\backslash\{v_1\}$, se $\beta(v_i)=v_i,1\leq i$, então obviamente todo subconjunto finito de $\Gamma$ é satisfatível por $(\mf{A},\beta)$, portanto compacidade garante que $\msf{Sat}(\Gamma)$ e Correção e Completude que $\msf{Con}(\Gamma)$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 5.} Mostre que um mapa infinito pode ser colorido com 4 cores sse todo submapa finito também pode.
+\end{shaded}
+
+\begin{proof}
+    A prova é análoga a do caso sentencial, basta tomar $\mc{S}=\{R, B, G, Y, c_1, c_2,\dots\}$, onde $R,B,G,Y$ são símbolos de relação unários e $c_i,1\leq i$ símbolos de constante, e repetir os mesmos axiomas, mas com $c_i$ no lugar dos símbolos sentenciais. O Teorema das Quatro Cores garante que para o caso finito sempre é possível colorir o mapa, portanto compacidade garante que também vale para o caso infinito.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 6.} Prove que classes $\msf{EC}_\Delta$ disjuntas podem ser separadas em classes $\msf{EC}$, i.e., se $\Phi,\Psi$ são tq $\text{Mod}(\Phi)\cap\text{Mod}(\Psi)=\emptyset$, então existe $\tau$ tq $\text{Mod}(\Phi)\subseteq\text{Mod}(\tau)$ e $\text{Mod}(\Psi)\subseteq\text{Mod}(\neg\tau)$.
+\end{shaded}
+
+\begin{proof}
+    Se $\text{Mod}(\Phi)\cap\text{Mod}(\Psi)=\emptyset$, então $\neg\msf{Sat}(\Phi\cup\Psi)$, portanto Compacidade garante que existe $\Phi_0\cup\Psi_0\subseteq\Phi\cup\Psi$ tq $\neg\msf{Sat}(\Phi_0\cup\Psi_0)$, seja $\varphi=\bigwedge\Phi_0$ e $\psi=\bigwedge\Psi_0$, que estão bem definidas, visto que $\Phi_0,\Psi_0$ são finitas. Como $\neg\msf{Sat}(\varphi\wedge\psi)$, i.e., $\neg\msf{Con}(\varphi\wedge\psi)$, então $\neg(\varphi\wedge\psi)=\varphi\to\neg\psi$ é uma tautologia, como $\Phi_0\vDash\varphi$, então $\Phi_0\vDash\neg\psi$. Como este é consistente, então $\Phi_0\nvDash\neg\psi$, além disso $\Psi_0\vDash\psi$, logo $\Phi\vDash\Phi_0\vDash\neg\psi$ e $\Psi\vDash\Psi_0\vDash\psi$, i.e., $\tau=\neg\psi$ satisfaz.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 8.} Seja $\mc{S}=\{P\}$, onde $P$ é um símbolo de relação binário, e seja $|\mf{A}|=\mbb{Z}$ com $P^\mf{A}:=\{(a,b)\in\mbb{Z}^2\mid |a-b|=1\}$. Prove que existe $\mf{B}\equiv\mf{A}$ que não é conexa, i.e., existem $a,b\in|\mf{B}|$ tq não existe $(p_0,\dots,p_n)$, com $a=p_0,b=p_n$ e $(p_i,p_{i+1})\in P^\mf{A},0\leq i<n$.
+\end{shaded}
+
+\begin{proof}
+    Considere
+    $$\Phi:=\text{Th}(\mbb{Z})\cup\Biggl\{\nexists x_1\dots x_n\left(Pax_1\wedge\bigwedge_{1\leq i<n}Px_ix_{i+1}\wedge Pbx_n\right): n\in\mbb{N}\Biggr\}$$
+    Para todo $\Phi_0\subseteq\Phi$ finito temos $\vDash_\mf{A}\Phi_0$, seja $m$ a maior quantidade de variáveis nas fórmulas de $\Phi$, basta tomar $\overline{s}(a)=0,\overline{s}(b)=n+1$, portanto compacidade garante que existe $\mf{B}$ tq $\vDash_\mf{B}\Phi$, o que garante que $\vDash_\mf{B}\text{Th}(\mbb{Z})$, i.e., $\mf{B}\in\text{Mod}(\text{Th}(\mf{A}))=\mf{t}(\mf{A})$, logo $\mf{A}\equiv\mf{B}$, mas $\mf{B}$ contém dois elementos $\overline{s}(a),\overline{s}(b)$ que não são conectados por nenhuma sequência finita de elementos em $|\mf{B}|$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 9.} a) Mostre que se adicionarmos $\psi\in\Lambda$ tq $\nvDash\psi$, então o Teorema da Correção falha;\\
+b) Mostre que se $\Lambda=\emptyset$, então o Teorema da Completude falha;\\
+c) Suponha que modifiquemos $\Lambda$ para incluir uma nova fórmula válida, mostre porque ambos Correção e Completude ainda valem.
+\end{shaded}
+
+\begin{proof}
+    a) Se $\nvDash\psi$, então existe $\mf{A}$ tq $\nvDash_\mf{A}\psi$, entretanto, como $\psi\in\Lambda$, então $\text{Th}(\mf{A})\vdash\psi$, mas $\text{Th}(\mf{A})\nvDash\psi$;\\
+    b) Sabemos que $\{\varphi\wedge\psi\}\vDash\varphi$, mas $\{\varphi\wedge\psi\}\nvdash\varphi$, visto que as únicas deduções possíveis incluem $\varphi\wedge\psi$ e modus ponens, que nada pode fazer nesse caso;\\
+    c) Sendo $\Gamma'=\Gamma\cup\{\psi\}$ tq $\vDash\psi$, temos $\Gamma\vdash\varphi$, i.e., $\Gamma\cup\Lambda\vDash\varphi$, sse $\Gamma\cup\Lambda'\vDash\varphi$, visto que $\Gamma\cup\Lambda\vDash\Dashv\Gamma\cup\Lambda'$.
+\end{proof}
+
+\subs{6}{Modelos de Teorias}
+
+\begin{shaded}
+\textbf{Exercício 1.} Mostre que $\varphi,\psi\notin\Phi_\text{fv}$, onde
+\begin{align*}
+    \varphi & = \exists xyz((Pxf(x)\to Pxx)\vee(Pxy\wedge Pyz\wedge\neg Pxz));\\
+    \psi & = \exists x\forall y\exists z((Qzx\to Qzy)\to(Qxy\to Qxx)).
+\end{align*}
+\end{shaded}
+
+\begin{proof}
+    Se $\varphi,\psi\in\Phi_\text{fv}$, então para todo $\mf{A}$ finito temos $\vDash_\mf{A}\varphi,\psi$, portanto $\varphi,\psi\notin\Phi_\text{fv}$ sse os modelos de $\neg\varphi,\neg\psi$ são infinitos.
+    \begin{align*}
+        \neg\varphi & = \exists xyz((Pxf(x)\to Pxx)\vee(Pxy\wedge Pyz\wedge\neg Pxz))\\
+        & = \forall xyz(\neg(Pxf(x)\to Pxx)\wedge\neg(Pxy\wedge Pyz\wedge\neg Pxz))\\
+        & = \forall xyz((Pxf(x)\wedge\neg Pxx)\wedge(Pxy\wedge Pyz\to Pxz))
+    \end{align*}
+    i.e., $P$ é transitivo, não reflexivo e para cada $x$, $Pxf(x)$. Assuma por contradição que $\vDash_\mf{A}\neg\varphi$ onde $|\mf{A}|=\{a_1,\dots,a_n\}$, $f(a_1)\neq a_1$, caso contrário $Pa_1f(a_1)=Pa_1a_1$, contradição, portanto $f(a_1)=a_{i_1},i_1\neq1$, se $f(a_{i_1})=a_{i_2}$, não podemos ter $a_{i_2}=a_{i_1},a_{i_2}$, caso contrário a transitividade de $P$ garante que $Pxx$, em geral é fácil ver por indução que $f(a_{i_k})\neq a_{i_1},\dots,a_{i_k}$, entretanto, para $a_{i_n}$ teremos $f(a_{i_n})\notin\{a_{i_1},\dots,a_{i_n}\}=|\mf{A}|$, contradição, visto que $f$ é uma função, portanto $\mf{A}$ precisa ser infinito.\\
+    Analogamente, temos
+    \begin{align*}
+        \neg\psi & = \neg\exists x\forall y\exists z((Qzx\to Qzy)\to(Qxy\to Qxx))\\
+        & = \forall x\exists y\forall z((Qzx\to Qzy)\wedge Qxy\wedge\neg Qxx)
+    \end{align*}
+    $\neg\psi$ expressa que existe um $y$ tq para todo $z$ em que $zQx$, temos $zQy$, que sempre existe um $y$ tq $Qxy$ e e que $Q$ é não reflexiva. Assuma $\vDash_\mf{A}\neg\psi$, com $|\mf{A}|=\{a_1,\dots,a_n\}$, como para todo $x_1$ existe $x_2$ tq $Qx_1x_2$, visto que $Q$ é não-reflexivo $x_1\neq x_2$, analogamente existe $x_3$ tq $Qx_2x_3$, com $x_3\neq x_2$, se $x_3=x_1$, como $Qx_1x_2$ e $Qx_2x_1$, então $Qx_1x_1$, contradição, é fácil ver por indução, portanto, que isso forma uma sequência $(x_i)$ tq $Qx_ix_{i+1}$ e $x_i\neq x_j,i\neq j$, entretanto, se $Qx_1x_2,\dots,Qx_{n-1}x_n$, então tem de existir um $x_{n+1}\neq x_i,i\leq n+1$ tq $Qx_nx_{n+1}$, o que é impossível, visto que $|\mf{A}|$ só possui $n$ elementos distintos, contradição, logo $\mf{A}$ é infinito.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} Sejam $T_1,T_2$ teorias na mesma linguagem tq $T_1\subseteq T_2$, $T_1$ é completa e $\text{Sat}(T_2)$, prove que $T_1=T_2$.
+\end{shaded}
+
+\begin{proof}
+    Seja $\varphi\in T_2$, como $T_1$ é completa, $\varphi$ ou $\neg\varphi$ está em $T_1$, no último caso, como $T_1\subseteq T_2$, temos $\varphi,\neg\varphi\in T_2$, logo $T_2\vdash\varphi,\neg\varphi$, i.e., $\neg\text{Con}(T_2)$ que, por Correção, implica em $\neg\text{Sat}(T_2)$, contradição, logo $\varphi\in T_1$, i.e., $T_2\subseteq T_1$, como por hipótese $T_1\subseteq T_2$, então $T_1=T_2$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 3.} Prove que:\\
+a) $\Sigma_1\subseteq\Sigma_2\Rightarrow\text{Mod}(\Sigma_2)\subseteq\text{Mod}(\Sigma_1)$;\\
+b) $\mc{K}_1\subseteq\mc{K}_2\Rightarrow\text{Th}(\mc{K}_2)\subseteq\text{Th}(\mc{K}_1)$;\\
+c) $\text{Mod}(\Sigma)=\text{Mod}(\text{Th}(\text{Mod}(\Sigma)))$ e $\text{Th}(\mc{K})=\text{Th}(\text{Mod}(\text{Th}(\mc{K})))$.
+\end{shaded}
+
+\begin{proof}
+    a) Se $\vDash_\mf{A}\Sigma_2$, então $\vDash_\mf{A}\sigma,\sigma\in\Sigma_2$, como $\Sigma_1\subseteq\Sigma_2$, então também $\vDash_\mf{A}\sigma,\sigma\in\Sigma_1$, i.e., $\vDash_\mf{A}\Sigma_1$, portanto todo modelo de $\Sigma_2$ é também modelo de $\Sigma_1$: $\text{Mod}(\Sigma_2)\subseteq\text{Mod}(\Sigma_1)$;\\
+    b) Analogamente, se $\vDash_\mf{A}\varphi$ para toda $\mf{A}\in\mc{K}_2$, visto que $\mc{K}_2\subseteq\mc{K}_1$, então $\vDash_\mf{A}\varphi$ para toda $\mf{A}\in\mc{K}_1$;\\
+    c) Se $\varphi\in\Sigma$, então $\Sigma\vDash\varphi$, i.e., todos os modelos $\mf{A}$ de $\Sigma$ são modelos de $\varphi$, portanto $\varphi\in\text{Th}(\text{Mod}(\Sigma))$, por a) temos então que $\text{Mod}(\text{Th}(\text{Mod}(\Sigma)))\subseteq\text{Mod}(\Sigma)$. Para a conversa, se $\mf{A}$ é um modelos de $\Sigma$, sabemos que $\varphi\in\text{Th}(\text{Mod}(\Sigma))$ sse todo modelo de $\Sigma$ é modelos de $\varphi$, em particular $\vDash_\mf{A}\varphi$, logo $\text{Mod}(\Sigma)\subseteq\text{Mod}(\text{Th}(\text{Mod}(\Sigma)))$;\\
+    Se $\varphi\in\text{Th}(\mc{K})$, então $\vDash_\mf{A}\varphi$ para todo $\mf{A}\in\mc{K}$, então em particular $\mf{A}\in\text{Mod}(\text{Th}(\mc{K}))$ para todo $\mf{A}\in\mc{K}$, i.e., $\mc{K}\subseteq\text{Mod}(\text{Th}(\mc{K}))$, por b) temos $\text{Th}(\text{Mod}(\text{Th}(\mc{K})))\subseteq\text{Th}(\mc{K})$. Seja $\varphi\in\text{Th}(\mc{K})$, logo para todo $\mf{A}\in\text{Mod}(\text{Th}(\mc{K}))$ temos $\vDash_\mf{A}\varphi$, portanto $\varphi\in\text{Th}(\text{Mod}(\text{Th}(\mc{K})))$, i.e., $\text{Th}(\mc{K})\subseteq\text{Th}(\text{Mod}(\text{Th}(\mc{K})))$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 4.} Prove que a teoria das ordenações lineares densas sem pontos limites é $\aleph_0$-categórica.
+\end{shaded}
+
+\begin{proof}
+    Sejam $\mf{A},\mf{B}$ estruturas contáveis tq $\vDash_{\mf{A},\mf{B}}\delta$, enumere $|\mf{A}|=\{a_0,a_1,\dots\},|\mf{B}|=\{b_0,b_1,\dots\}$, defina $f(a_0)=b_0$ e siga o procedimento: para o menor $a_i\in|\mf{A}|$ que ainda não foi associado a nenhum elemento por $f$, escolha o menor $b_j\in|\mf{B}|$ tq $f$ preserve a ordem, i.e., se $a_{i_0}<\dots<a_i<\dots<a_{i_n}$, então $f(a_{i_0})<\dots<b_j<\dots<f(a_{i_n})$, onde cada $a_{i_k},0\leq k\leq n$ já foi associado, após isso, escolha o menor $b_i\in|\mf{B}|$ que ainda nennhum $a\in|\mf{A}|$ se associou e escolha o menor $a_j\in|\mf{A}|$ para associar tq $f$ preserve a ordem, e repita o procedimento. Para provar que $f$ é um isomorfismo e que o procedimento anterior é válido, basta notar que paara todo $a_i$, podemos encontrar um $b_j$ que preserva a ordem, se $a_i$ estiver entre os pontos já associados, densidade garante que existe um $b_j$ entre os pontos de $|\mf{B}|$ que preserve a ordem, se $a_i$ estiver a direita ou a esquerda de todos os pontos, a propriedade de não haver pontos limites garante que vai existir um $b_j$ maior ou menor que todos os outros, e tricotomia permite que testemos em cada passo qual a relação de $a_i$ com os pontos anteriormente associados para garantir que $f$ preserva a ordem.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} O processo descrito acima é uma das técnicas modelo-teóricas mais comuns para provar que duas estruturas são isomórficas, é conhecida como \textbf{ir-e-vir} (ou back-and-forth), e reside no fato de que se $\mf{A}\cong_p\mf{B}$ (são parcialmente isomórficas), com $|\mf{A}|,|\mf{B}|\preceq\aleph_0$, então $\mf{A}\cong\mf{B}$. Isomorfismos parciais são, além de técnicas importantes, fatos essenciais nas provas do \textbf{Teorema de Fraïssé} e no \textbf{Jogo de Ehrenfeucht–Fraïssé}, que por sua vez são usados nas provas dos \textbf{Teoremas de Lindström}, então vamos dar um sketch do teorema acima, um mapeamento $p$ de $\mf{A}$ em $\mf{B}$ é denominado isomorfismo parcial se $\text{Dom}(p)\subseteq|\mf{A}|,\text{Ran}(p)\subseteq|\mf{B}|$ e\\
+a) $p$ é injetor;\\
+b) para todo $a_1,\dots,a_n,a\in\text{Dom}(p)$ e símbolos $P,f,c\in\mc{S}$:
+\begin{align*}
+    P^\mf{A}a_1\dots a_n & \text{ sse }P^\mf{B}p(a_1)\dots p(a_n);\\
+    f^\mf{A}(a_1,\dots,a_n)=a & \text{ sse }f^\mf{B}(p(a_1),\dots,p(a_n))=p(a);\\
+    c^\mf{A}=a & \text{ sse }c^\mf{B}=p(a).
+\end{align*}
+O ponto principal é que isomorfismos parciais, embora em geral não preservem fórmulas com quantificadores, se puderem ser extendidos podem preservar, o que é capturado pela definição de estruturas \textit{parcialmente isomórficas} $(\mf{A}\cong_p\mf{B})$: se existe $I$ tq\\
+a) $I\neq\emptyset$  é um conjunto de isomorfismos parciais de $\mf{A}$ em $\mf{B}$;\\
+b) (propriedade de ir) Para todo $p\in I$ e $a\in|\mf{A}|$, existe $q\in I$ tq $p\subseteq q$ e $a\in\text{Dom}(p)$;\\
+c) (propriedade de vir) Para todo $p\in I$ e $b\in|\mf{B}|$, existe $q\in I$ tq $p\subseteq q$ e $a\in\text{Ran}(p)$.\\
+Vamos agora a prova do teorema enunciado no início, suponha que $I:\mf{A}\cong_p\mf{B}$, $A=\{a_0,a_1,\dots\}$, $B=\{b_0,b_1,\dots\}$. Inicie com um $p_0\in I$ e, aplicando repetidamente as propriedades de ir e vir, obtemos extensões $p_1,p_2,\dots\in I$ tq $a_0\in\text{Dom}(p_1)$, $b_0\in\text{Ran}(p_2)$, $a_1\in\text{Dom}(p_3)$, $b_1\in\text{Ran}(p_4)$, $\dots$, portanto $p=\bigcup_{n\in\mbb{N}}p_n$ é um isomorfismo parcial de $\mf{A}$ em $\mf{B}$ tq $\text{Dom}(p)=|\mf{A}|$ e $\text{Ran}(p)=|\mf{B}|$, logo $p:\mf{A}\cong\mf{B}$. Com isso em mãos, a prova de que a teoria das ordenações lineares densas sem pontos limites é $\aleph_0$-categórica se resume a encontrar um conjunto $I$ de isomorfismo parciais entre quaisquer estruturas no máximo contáveis $\mf{A},\mf{B}$ que as torna parcialmente isomórficas. Com algumas definições adicionais como \textit{finitamente isomórficas} $(\mf{A}\cong_f\mf{B})$ que não será explicada em detalhes aqui, conseguimos provar o \textbf{Teorema de Fraïssé}, que diz que $\mf{A}\equiv\mf{B}$ sse $\mf{A}\cong_f\mf{B}$, para $\mc{S}$-estruturas com $\mc{S}$ finito, sabendo que $\mf{A}\cong_p\mf{B}\Rightarrow\mf{A}\cong_f\mf{B}$ é fácil mostrar que $(\mbb{R},<^R)\equiv(\mbb{Q},<^Q)$ e que a teoria é completa e $R$-decidível.
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 5.} Encontre a forma normal prenex de:\\
+a) $(\exists xAx\wedge\exists xBx)\to Cx$;\\
+b) $\forall xAx\leftrightarrow\exists xBx$.
+\end{shaded}
+
+\begin{proof}
+    a) $\exists x\exists y((Ax\wedge By)\to Cz)$;\\
+    b) $\forall x\exists y(Ax\leftrightarrow By)$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 6.} Prove que uma teoria $R$-enumerável (em uma linguagem razoável) é axiomatizável.
+\end{shaded}
+
+\begin{proof}
+    Se $T$ é uma teoria $R$-enumerável seja $\{\sigma_0,\sigma_1,\dots\}$ uma enumeração, considere
+    $$\Sigma:=\Biggl\{\bigwedge_{0\leq i\leq n}\sigma_i: n\in\mbb{N}\Biggr\}=\{\sigma_0,\sigma_0\wedge\sigma_1,\sigma_0\wedge\sigma_1\wedge\sigma_2,\dots\}$$
+    é fácil ver que o $n$-ésimo elemento de $\Sigma$ satisfaz $\sigma_n$ e que, equivalentemente, pra todo $\bigwedge_{0\leq i\leq k}\sigma_k$ temos que $T$ satisfaz, portanto $T\vDash\Dashv\Sigma$, i.e., $\text{Mod}(T)=\text{Mod}(\Sigma)$, do Exercício 3. dessa seção sabemos que $\text{Th}(T)=\text{Th}(\text{Mod}(\text{Th}(T)))$, visto que $T$ é uma teoria, $\text{Th}(T)=T$, portanto
+    \begin{align*}
+        T & = \text{Th}(\text{Mod}(T))\\
+        & = \text{Th}(\text{Mod}(\Sigma))\\
+        & = \text{Cn}(\Sigma)
+    \end{align*}
+    para provar que $T$ é axiomatizável basta, portanto, provar que $\Sigma$ é decidível.\\
+    Como $T$ é enumerável, basta, para um $\varphi\in\Sigma$ qualquer, verificar se o segmento inicial de $\varphi$ é igual a $\sigma_0$, visto que  todas as sentenças em $\Sigma$ assim começam, caso não combine, então não pertence a $\Sigma$, se combinar e a string não tiver acabado teste para $\wedge\sigma_1$, e assim por diante.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 7.} Seja $\mf{N}=(\mbb{N},<)$, mostre que existe $\mf{A}\equiv\mf{N}$ tq $<^\mf{A}$ tem uma cadeia descendente, i.e., existem $a_0,a_1,\dots\in|\mf{A}|$ tq $(a_{i+1},a_i)\in<^\mf{A},i\geq0$.
+\end{shaded}
+
+\begin{proof}
+    Seja
+    $$\sigma_n:=\exists x_1\dots x_n\rp{\bigwedge_{r,s\in\{1,\dots,n\}}v_r\neq 
+ v_s\wedge\bigwedge_{0\leq i<n}<^\mf{A}x_{i+1}x_i}$$
+ considere $\Sigma=\text{Th}(\mf{N})\cup\{\sigma_1,\sigma_2,\dots\}$, obviamente todo subconjunto finito $\Sigma_0\subseteq\Sigma$ é tq $\vDash_\mf{N}\Sigma_0$, por compacidade existe $\mf{B}\equiv\mf{A}$ tq $\vDash_\mf{B}\Sigma$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 8.} Assuma que $\vDash_\mf{A}\sigma$ para todo modelo infinito $\mf{A}$ de uma teoria $T$. Mostre que existe $k\in\mbb{N}$ tq $\sigma$ é verdade em todos os modelos $\mf{B}$ de $T$ que possuem $k$ ou mais elementos no domínio.
+\end{shaded}
+
+\begin{proof}
+    Se $\vDash_\mf{A}\sigma$ para todo modelo infinito de $T$, então $\vDash_\mf{B}\neg\sigma$ se $\mf{B}$ é um modelo finito, considere
+    $$\Sigma:=T\cup\{\neg\sigma\}\cup\{\varphi_{\geq i}\mid i\geq0\}$$
+    onde $\varphi_{\geq n}$ expressa "há no mínimo $n$ elementos" (veja a Observação do Exercício 9. da Seção 2.2.), Assuma por contradição que para cada $\Sigma_0\subseteq\Sigma$ existe $\mf{A}$ tq $\vDash_\mf{A}\Sigma_0$, portanto compacidade garante que existe um modelo $\mf{B}$ de $\Sigma$, contradição, visto que $\mf{B}$ tem de ser infinito para satisfazer $\Sigma$, e $\vDash_\mf{B}\neg\sigma$, portanto existe um $\Sigma_0$ tq $\neg\text{Sat}(\Sigma_0)$, seja $\varphi_{\geq k}$ a fórmula com maior $k$ que esteja em $\Sigma_0$, como $\Sigma_0$ não é satisfatível, nenhum outro modelo que contém mais de $k$ elementos pode satisfazer $\neg\sigma$, portanto $\sigma$ é verdadeiro para todo modelo que possui $k$ ou mais elementos.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 9.} Dizemos que um conjunto de sentenças $\Sigma$ possui a propriedade de modelo finito sse para cada $\sigma\in\Sigma$, se $\text{Sat}(\sigma)$, então $\sigma$ possui um modelo finito. Assuma que $\Sigma$ é um conjunto de sentenças em uma linguagem finita e que possui a propriedade de modelo finito. Crie um procedimento que decida se, dado um $\sigma\in\Sigma$, este é ou não satisfatível.
+\end{shaded}
+
+\begin{proof}
+    Pelo Teorema de Kleene, basta provarmos que $\Phi:=\{\sigma\in\Sigma\mid\text{Sat}(\sigma)\}$ e $\Sigma\backslash\Phi$ são ambos $R$-enumeráveis, o que implica que $\Sigma$ por si só é $R$-enumerável, algo que não foi dado como hipótese no enunciado, portanto assumiremos que $\Sigma$ é $R$-enumerável. Se $\sigma\in\Sigma$, pela propriedade do modelo finito, se $\sigma$ for satisfatível, então possui um modelo finito, portanto basta utilizarmos o procedimento que testa, para cada $\sigma\in\Sigma$, se a estrutura $|\mf{A}_n|=\{1,\dots,n\}$ de tamanho $n$ é tq $\vDash_{\mf{A}_n}\sigma$, utilizando o algoritmo descrito no livro. Portanto enumeramos $\Sigma$ e testamos se $\mf{A}_1$ é modelo de $\sigma_1$, depois se $\mf{A}_1,\mf{A}_2$ são modelos de $\sigma_1,\sigma_2$, ..., se algum $\sigma_i$ for satisfeito, printamos, caso contrário não, visto que cada sentença satisfatível possui um modelo finito ela eventualmente será printada, logo $\Phi$ é $R$-enumerável pelo procedimento $\mf{P}_1$. Se $\sigma$, por outro lado, não for satisfatível, então ele prova uma contradição, sabemos que $\{\sigma\}$ é decidível, portanto seus teoremas são enumeráveis, se este for uma contradição, printamos, caso contrário não, portanto o procedimento $\mf{P}_2$ enumera fórmulas não satisfatíveis, visto que a contradição que $\sigma$ prova tem de ser finita, logo eventualmente será um teorema que aparecerá na enumeração.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 10.} Assuma que temos uma linguagem finita sem símbolos de função:\\
+a) Prove que o conjunto de sentenças $\Sigma_2$ satisfatíveis é decidível;\\
+b) Prove que o conjunto de sentenças $\Pi_2$ válidas é decidível.
+\end{shaded}
+
+\begin{proof}
+    a) Devido ao Exercício 19. da seção 2.2. sabemos que uma sentença $\Sigma_2$, se satisfatível, possui um modelo finito, i.e., o conjunto $\Phi$ de sentenças $\Sigma_2$ satisfatíveis goza da propriedade de modelo finito, logo, pelo exercício anterior, $\Phi$ é decidível;\\
+    b) Se $\varphi\in\Pi_2$, então $\varphi=\forall x_1\dots x_n\exists y_1\dots y_m\theta$, onde $\theta$ é livre de quantificadores. Se $\varphi$ é válida, então $\neg\varphi$ não é satisfatível, note que $\neg\varphi=\exists x_1\dots x_n\forall y_1\dots y_m\neg\theta$, i.e., $\neg\varphi\in\Sigma_2$, de a) sabemos que o conjunto de sentenças $\Sigma_2$ satisfatíveis é decidível, portanto seu complementar em $\Sigma_2$ também é, logo, dado $\varphi\in\Pi_2$, para saber se $\varphi$ é válida basta determinar se $\neg\sigma$ é não satisfatível utilizando o processo de decisão de a).
+\end{proof}
+
+\subs{7}{Interpretações entre Teorias}
+
+\textcolor{red}{PENDENTE}. Ambos os exercícios 1. e 2. são corolários diretos do fato maçante de que toda linguagem $L_0$ pode ser reduzida a uma linguagem relacional $L_1$, i.e., uma linguagem somente com símbolos de relação.
+
+\begin{shaded}
+\textbf{Exercício 3.} Prove que uma interpretação $\pi$ de uma teoria completa $T_0$ em uma teoria satisfatível $T_1$ é sempre fiel.
+\end{shaded}
+
+\begin{proof}
+    Assuma por contradição que existe $\pi:L_0\to T_1$ tq $T_0\subset\pi^{-1}[T_1]$, logo existe $\varphi\in\pi^{-1}[T_1]\backslash T_0$, mas como $T_0$ é completo, então $\neg\varphi\in T_0\subseteq\pi^{-1}[T_1]$, i.e., $\varphi,\neg\varphi\in\pi^{-1}[T_1]$, por definição existe $\mf{B}$ tq $\vDash_\mf{B}T_1$ e $\vDash_{^\pi\mf{B}}\varphi,\neg\varphi$, contradição, logo não existe tal $\pi$.
+\end{proof}
+
+\subs{8}{Análise não Padrão}
+
+\begin{shaded}
+\textbf{Exercício 1.} ($\mbb{Q}$ é denso em $\mbb{R}$). Mostre que para todo $x\in\mbb{R}^*$ existe $y\in\mbb{Q}^*$ tq $x\cong y$.
+\end{shaded}
+
+\begin{proof}
+    Como
+    $$\vDash_\mf{R}\forall xy(x\neq y\to\exists p(Qp\wedge x<p<y))$$
+    então
+    $$\vDash_{\mf{R}^*}\forall xy(x\neq y\to\exists p(\mbb{Q}^*p\wedge x<^*p<^*y))$$
+    portanto, em particular, para $y=x+\varpi$, com $\varpi\in\mc{I}$, temos que existe $p\in\mbb{Q}^*$ tq $x<^*p<^*x+\varpi$, i.e., $0<^*p-x<^*\varpi$, por definição $|\varpi|<y$, para todo $y\in\mbb{R}$, visto que $0<^*|p-x|<^*|\varpi|<y$, então obviamente $p-x\in\mc{I}$, i.e., $p\cong x$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} a) Seja $A\subseteq\mbb{R}$ e $F:A\to\mbb{R}$, mostre que $F^*:A^*\to\mbb{R}^*$;\\
+b) Seja $S:\mbb{N}\to\mbb{R}$. Mostre que $\lim_{n\to\infty}S(n)=b$ sse $S^*(x)\cong b$ para todo $x\in\mbb{N}^*$ infinito;\\
+c) Se $S_i:\mbb{N}\to\mbb{R}$ converge para $b_i$, com $i=1,2$. Mostre que $(S_1+S_2)\to(b_1+b_2)$ e $(S_1\cdot S_2)\to(b_1\cdot b_2)$.
+\end{shaded}
+
+\begin{proof}
+    a) Como $F\subseteq\mbb{R}^2$, então $F:A\to\mbb{R}$ sse $\vDash_\mf{R}\forall x(Ax\to\exists!y(Fxy))$, portanto em $\mf{R}^*$ temos que $\vDash_{\mf{R}^*}\forall x(A^*x\to\exists!y(Fxy))$, i.e., $F^*:A^*\to\mbb{R}^*$;\\
+    b) $\lim S(n)=b$ sse para todo $\varepsilon>0$, existe $k$ tq para todo $n>k$ temos $|S(n)-k|<\varepsilon$. Portanto em $\mf{R}^*$ sabemos que $|S^*(n)-k|<\varepsilon$, para todo $\varepsilon>0$ sse $S^*(n)-k\in\mc{I}$, i.e., $S^*(n)\cong k$, para todo $n>k$, portanto em particular para todo $x\in\mbb{N}^*$ infinito. Analogamente, se para todo $x\in\mbb{N}^*$ infinito, $S^*(x)\cong b$, então para todo $x$ tq para todo $k$, $x>k$, $|S^*(x)-b|<\varepsilon$, para todo $\varepsilon>0$. Então obviamente existe um $k$ tq se $x>k$, temos $|S^*(x)-b|<\varepsilon$, para todo $\varepsilon>0$;\\
+    \textcolor{red}{PENDENTE (prova feia :c, refazer mais elegantemente)}\\
+    c) Do resultado anterior para todo $x\in\mbb{N}^*$ infinito temos $S_1^*(x)\cong b_1$ e $S_2^*(x)\cong b_2$, logo segue-se diretamente do \textbf{Teorema 28B} b) e c) que $(S_1+S_2)\cong(b_1+b_2)$ e $(S_1\cdot S_2)\cong(b_1\cdot b_2)$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 3.} Seja $F:A\to\mbb{R}$ injetora, com $A\subseteq\mbb{R}$, mostre que se $x\in A^*\backslash A$, então $F^*(x)\notin\mbb{R}$.
+\end{shaded}
+
+\begin{proof}
+    Assuma por contradição que existe $x\in A^*\backslash A$ tq $F^*(x)\in\mbb{R}$, como $F$ é injetora então $F^{-1}:\text{Im}(F)\to A$ existe e, portanto, $F^{{-1}^*}:\text{Im}(F^*)\to A^*$ também e é função. Sabemos que $F^{-1}={F^{-1}}^*\vert_{\mbb{R}}$, como $F^*(x)\in\text{Im}(F^*)$ e $x\in\mbb{R}$, então $x\in\text{Im}(F)$, logo $F^{-1}(x)$ existe e está em $A$, contradição.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 4.} Seja $A\subseteq\mbb{R}$. Mostre que $A=A^*$ sse $A$ é finito.
+\end{shaded}
+
+\begin{proof}
+    ($\Leftarrow$) Se $A=\{x_1,\dots,x_n\}$ é finito, então
+    $$\vDash_\mf{R}\varphi(A):=\bigwedge_{1\leq i\leq n} A_{x_i}\wedge\forall x\rp{Ax\to \bigvee_{1\leq j\leq n}x=x_j}$$
+    como cada $x_i\in\mbb{R}$, então $x_i^*=x_i$, logo $\vDash_{\mf{R}^*}\varphi(A^*)$ com os mesmos $x_i$, i.e., $A=A^*$.\\
+    ($\Rightarrow$) Assuma que $A$ é ilimitado em $\mbb{R}$, como $A$ é infinito então $\vDash_\mf{R}\forall n(n\in\mbb{N}\to\exists x(x\in A\wedge x>n))$, logo $\vDash_{\mf{R}^*}\forall n(n\in\mbb{N}^*\to\exists x(x\in A^*\wedge x>^*n))$, em particular $\vDash_{\mf{R}^*}\exists x(x\in A^*\wedge x>\omega)$, com $\omega\in\mbb{N}^*$ infinito, e portanto $A^*$ possui um hiperreal infinito que não tem como estar em $A$, logo $A\neq A^*$;\\
+    Assuma agora que $A$ é limitado e infinito, pelo exercício seguinte existe $p\in\mbb{R}$ tq $p\cong a$ e $p\neq a$ para algum $a\in A^*$, mas se $p,a\in\mbb{R}$ e $p\cong a$, então $p=a$, logo $a\notin\mbb{R}$, i.e., $A\neq A^*$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 5.} (Teorema de Bolzano-Weierstrass) Seja $A\subseteq\mbb{R}$ limitado e infinito. Mostre que existe $p\in\mbb{R}$ tq $p\cong a$, mas $p\neq a$, para algum $a\in A^*$.
+\end{shaded}
+
+\begin{proof}
+    Se $A$ é infinito existe $S:\mbb{N}\to A$ injetora, uma vez que $A$ é limitado em $\mbb{R}$, então Bolzano-Weierstrass garante que existe uma subsequência $(s_n)_{n\in\mbb{N}}$ de $(S(n))_{n\in\mbb{N}}$ convergente, digamos para $p\in\mbb{R}$. Do \textbf{Exercício 2. b)} $\lim s_n=p$ sse $s^*_x\cong p$, para todo $x\in\mbb{N}^*$ infinito, como $S^*:\mbb{N}^*\to A^*$, em particular existe um $\omega\in\mbb{N}^*$ infinito tq $\omega\in\text{Dom}(s^*)$, $S^*(\omega)\in A^*$ e $S^*(\omega)=s^*_\omega=a\cong p$, para garantir que existe $\omega$ tq $s^*_\omega=a\neq p$, i.e., $a\notin\mbb{R}$ assuma por contradição que $s_x^*=s_y^*=a$ para todo $x,y\in\mbb{N}^*$ infinito, isso contradiz o fato de que $S^*$ é injetora (visto que $S$ é), para completar, é óbvio que não podemos ter $s^*_x,s^*_y\in\mbb{R}$ e $s^*_x\neq s^*_y$, visto que nesse caso $s^*_x\ncong s^*_y$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 6.} a) Mostre que $|\mbb{Q}^*|\succeq2^{\aleph_0}$;\\
+b) Mostre que $|\mbb{N}^*|\succeq2^{\aleph_0}$.
+\end{shaded}
+
+\begin{proof}
+    a) Do \textbf{Exercício 1.} sabemos que para todo $x\in\mbb{R}^*$ existe $y\in\mbb{Q}^*$ tal que $x\cong y$. Como para todo $x,y\in\mbb{R}$ se $x\neq y$, então $x\ncong y$, logo $\text{st}\vert_{\mbb{R}}:\mbb{R}\to\mbb{Q}^*$ é injetora, portanto $\mbb{Q}^*\succeq2^{\aleph_0}$;\\
+    b) como $|\mbb{Q}|=|\mbb{N}|$, então existe $f:\mbb{Q}\to\mbb{N}$ bijetora, em particular
+    $$\vDash_\mf{R}\forall xy(P_\mbb{Q}x\wedge P_\mbb{Q}y\wedge x\neq y\to F_f(x)\neq F_f(y))\wedge\forall y(P_\mbb{N}y\to\exists x(P_\mbb{Q}x\wedge F_f(x)=y))$$
+    i.e., $f$ é uma bijeção de $\mbb{Q}$ em $\mbb{N}$, portanto $\mf{R}^*$ prova o mesmo para $f^*:\mbb{Q}^*\to\mbb{N}^*$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 7,} Seja $A\subseteq\mbb{R}$ sem máximo, logo, com respeito a $\mbb{R}^*$ e $<^*$, $A$ terá um limite superior em $\mbb{R}^*$, mas prove que $\sup(A)$ não existe.
+\end{shaded}
+
+\begin{proof}
+    Assuma que $\sup(A)$ exista, como $A$ não possui máximo obviamente $\sup(A)\notin A$. Seja $\varpi\in\mc{I}$ positivo, logo para todo $y\in A$ temos que $0<\varpi<\sup(A)-y$, uma vez que $\sup(A)> y, \forall y\in A$, i.e., $\sup(A)-y>0$. Logo $y-\sup(A)<-\varpi<0$ e $y<\sup(A)-\varpi<\sup(A)$, $\forall y\in A$, i.e., $\sup(A)-\varpi$ é um limite superior menor que o supremo, contradição, logo $\sup(A)$ não existe ($<$ é interpretado como $<^*$ na prova).
+\end{proof}
+
+\section{Indecidibilidade}
+
+\subs{1}{Números Naturais com Sucessor}
+
+\begin{shaded}
+\textbf{Exercício 1.} Seja $A^*_S=\{S_1,S_2\}\cup\{\forall\overline{x}\rp{\varphi(0,\overline{x})\wedge\forall y(\varphi(y,\overline{x})\to\varphi(Sy,\overline{x}))\to\forall z\varphi(z,\overline{x})}\mid\varphi\in\mc{L}^\mc{S}\}$. Mostre que $A_S\subseteq\text{Cn}(A^*_S)$ e conclua que $\text{Cn}(A^*_S)=\text{Th}(\mf{N}_S)$.
+\end{shaded}
+
+\begin{proof}
+    Obviamente $S_1,S_2\in\text{Cn}(A^*_S)$, como $\text{Cn}(A^*_S)$ é uma teoria basta, portanto, provarmos que $\text{Cn}(A^*_S)\vdash S_3, S_{4.n}$, para cada $n$. Para $S_3$ seja $\varphi(y):=y\neq 0\to\exists x(y=Sx)$, obviamente vale $\varphi(0)$ e é fácil mostrar que se vale para $y$, por $S_1$ temos que $Sy\neq0$ e obviamente $\text{Cn}(A^*_S)\vdash\exists x(Sy=Sx)$, basta tomar $x=y$, portanto vale $\varphi(Sy)$, indução garante, portanto, que $\forall y\varphi(y)=S_3$. O caso para $S_4.n$ é análogo, seja $\varphi_1(x):=Sx\neq x$, $S_1$ garante que vale $\varphi_1(0)$ e se vale $\varphi_1(y)=Sy\neq y$, então a contrapositiva de $S_2$ garante que $SSy\neq Sy$, i.e., $\varphi_1(Sy)$, logo por indução em $\varphi_1$ temos $\forall y\varphi_1(y)$. Em geral, para um $n$ qualquer temos que $\varphi_n(0)$ obviamente, e se $\varphi_n(y)$, então a contrapositiva de $S_2$ garante que $\varphi_n(Sy)=SS^ny\neq Sy$, por indução $\forall y\varphi_n(y)$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} Complete a prova do \textbf{Teorema 31F.}
+\end{shaded}
+
+\begin{proof}
+    \textcolor{red}{PENDENTE (Boring)}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 3.} Prove que para todo $\varphi\in\mc{L}^\mc{S}$, existe $\psi$ livre de quantificadores tq $A_S\vDash(\varphi\leftrightarrow\psi)$, sem utilizar a completude de $\text{Cn}(A_S)$.
+\end{shaded}
+
+\begin{proof}
+    Para isso basta provarmos que cada fórmula obtida nos passos de eliminação de quantificadores é válido, i.e., se $\varphi_1$ é nossa fórmula inicial com $A_S\vDash\varphi$, então as fórmula $\varphi_2,\varphi_3,\dots,\psi$ obtidas para se chegar a $\psi$ são tq $A_S\vDash(\varphi_i\leftrightarrow\varphi_{i+1})$. Os primeiros passos são triviais, obviamente se $\theta$ é uma fórmula livre de quantificadores, então sua forma disjuntiva normal $\theta'$ é tq $A_S\vDash(\theta\leftrightarrow\theta')$, o caso para distribuição e eliminação de quantificadores também é trivial devido as regras de inferência desenvolvidas no capítulo de dedução. Para cada literal $\alpha_i$ restante, ele é da forma $S^mx=S^nx$ o uso iterado de $S_2$ garante que $A_S\vdash(S^mx=S^x\leftrightarrow0=0)$ sse $n=m$, caso contrário $S_1$ garante que isso é equivalente a $0\neq0$. Para o caso 1 assuma que cada $\alpha_i$ é da forma $S^nx\neq S^mu$, como a quantidade de fórmulas é finita obviamente sempre podemos encontrar $x,u$ e as demais variáveis que ocorrem por números tq $S^nx\neq S^mu$, portanto $A_S\vDash(\exists x_1\dots x_n\theta\leftrightarrow0=0)$. Para o segundo caso, se existe um $\alpha_i$ da forma $S^mx=t$, então a substituição de $\alpha_i$ pela fórmula descrita na eliminação de quantificadores garante que podemos eliminar $x$ de todas as fórmulas, garantir que $x$ é não-negativo, e, com algumas regras de inferência básicas provar que $S^kx=u$ é equivalente a $S^kt=S^mu$.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} O execício anterior fornece uma prova distinta de que $\text{Cn}(A_S)$ é completa, como para todo $\varphi$ existe uma $\psi$ decidível tq $A_S$ satisfaz $\psi$ sse satisfaz $\varphi$, então é fácil ver $\text{Cn}(A_S)$ sempre satisfaz $\varphi$ ou sua negação.
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 4.} Mostre que $A\subseteq\mbb{N}$ é definível em $\mf{N}_S$ sse ou $A$ ou $\mbb{N}\backslash A$ é finito.
+\end{shaded}
+
+\begin{proof}
+    Para todo $\varphi'(x)$ eliminação de quantificadores garante que este pode ser reduzido a um $\varphi(x)$ da forma $\bigvee_{i\leq n}\bigwedge_{j\leq m}\alpha_{i,j}(x)$, onde $\alpha_{i,j}(x)$ é um literal, obviamente $A=\{x\in\mbb{N}\mid\vDash_{\mf{N}_S}\varphi(x)[s]\}$ pode ser escrito como $\bigcup_{i\leq n}\{x\in\mbb{N}\mid\vDash_{\mf{N}_S}\bigwedge_{j\leq m}\alpha_{i,j}(x)[s]\}$, se $\alpha_{i,j}$ é da forma $S^mx\neq S^nu$, defina $A_{i,j}:=\{x\in\mbb{N}\mid S^mx=S^nu\}^c$, e para $\alpha_i$ da forma $S^mx=S^nu$ como $\{x\in\mbb{N}\mid S^mx=S^nu\}$, logo $$A=\bigcup_{i\leq n}\bigcap_{j\leq m}A_{i,j}$$
+    Obviamente cada $A_{i,j}$ é ou finito, ou o complementar de um conjunto finiito, portanto sua intersecção e união finitas também.\\
+    \textcolor{red}{PENDENTE} (na verdade eu posso melhorar a prova utilizando o fato de que conjuntos definíveis são fechados sobre intersecção, união e complementação, bastando provar apenas que cada $A_{i,j}$ é definível, mas preguiça.)
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 5.} Mostre que $<^{\mf{N}_S}=\{(m,n)\mid m<^\mbb{N}n\}$ não é definível em $\mf{N}_S$.
+\end{shaded}
+
+\begin{proof}
+    Seja $R\subseteq\mbb{N}\times\mbb{N}$ uma relação definível em $\mf{N}_S$, mostramos no \textbf{Exercício 4.} que $R$ ou $\mbb{N}\times\mbb{N}\backslash R$ é finito, no primeiro caso para cada $(a,b)\in R$ basta tomar $y_{(a,b)}=\frac{b}{a}x$, logo o conjunto $A=\{y_{(m,n)}\mid (m,n)\in R\}$ cobre $R$ e portanto ela é linear, para o segundo caso basta considerar $A=\{y_{(m,n)}\mid (m,n)\in\mbb{N}\times\mbb{N}\backslash R\}$, portanto $R$, se for cofinito, é o complementar da relação linear $\mbb{N}\times\mbb{N}\backslash R$, e portanto é colinear. À vista disso, toda relação $R$ definível em $\mf{N}_S$ é ou linear ou colinear, portanto se $<^{\mf{N}_S}$ for defível, também tem de ser. Se assumirmos por contradição que existem $y_1,\dots,y_n$ que cobrem $<^{\mf{N}_S}$, é fácil ver que é sempre possível encontrar $(m,n)$ entre as retas tq $m<n$, contradição, como $\mbb{N}\times\mbb{N}\backslash<^{\mf{N}_S}=\geq$ o mesmo argumento pode ser utilizado.\\
+    \textcolor{red}{PENDENTE (Feio)}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 6.} Mostre que $\text{Th}(\mf{N}_S)$ não é finitamente axiomatizável.
+\end{shaded}
+
+\begin{proof}
+    Sabemos que se uma teoria $T=\text{Cn}(\Sigma)$ é finitamente axiomatizável, então existe $\Sigma_0\subseteq\Sigma$ finito tq $\text{Cn}(\Sigma)=\text{Cn}(\Sigma_0)$. Portanto basta provarmos que nenhum conjunto finito de $A_S$ é suficiente para axiomatizar $\text{Th}(\mf{N}_S)$. Para isso considere $\Sigma_0\subseteq A_S$, portanto $\Sigma_0$ contém finitos $S_{4.n}$, digamos $S_{4.n_0},S_{4.n_1},\dots,S_{4,n_m}$, com $n_0<\dots<n_m$. Seja $\mf{N}'_i:=(\mbb{N}\cup A_i,S,0)$, onde $A_i$ é um conjunto disjunto de $\mbb{N}$ contendo $i$ elementos $x_1,\dots,x_i$ tq $S(x_j)=x_{j+1}$. Obviamente $\mf{N}'_{n_m+1}$ satisfaz cada $S_{4.n_i}$, assim como $S_1,S_2,S_3$, portanto $\vDash_{\mf{N}'_{n_m+1}}\Sigma_0$, mas $\nvDash_{\mf{N}'_{n_m+1}}A_S$, visto que possui um ($n_m+1$)-ciclo, portanto nenhum subconjunto finito de $A_S$ axiomatiza $\text{Th}(\mf{N}_S)$.
+\end{proof}
+
+\subs{2}{Outras Reduções da Teoria dos Números}
+
+\begin{shaded}
+\textbf{Exercício 1.} Prove que todo conjunto eventualmente periódico de números naturais é definível em $\mf{N}_A$.
+\end{shaded}
+
+\begin{proof}
+    Seja $A$ um conjunto eventualmente periódico arbitrário, logo existe $M,p$ tq para todo $a>M$, $a\in A$ sse $a+p\in A$. Portanto para os finitos pontos $n_1,\dots,n_m$ menores que $M$ em $A$ defina $\varphi(x)=\bigvee_{1\leq i\leq m}(x=\mathbf{S^{n_i}0})$, como todo ponto restante em $A$ é da forma $a_0+p$, onde $a_0$ é o menor natural maior que $M$ que está em $A$, então $\psi(x):=\varphi(x)\vee (x>\mathbf{S^M0}\wedge x\equiv_p \mathbf{S^{a_0}0})$ define $A$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.}  Mostre que $<^\mbb{N},\{0\}$ e $S^\mbb{N}$ são definíveis em $(\mbb{N},+)$.
+\end{shaded}
+
+\begin{proof}
+    \begin{align*}
+        <^\mbb{N} & = \{(x,y)\in\mbb{N}^2\mid \exists w(\forall k(w+k=k)\wedge\exists z(z\neq w\wedge y=x+z))\}\\
+        \{0\} & = \{x\in\mbb{N}\mid \forall y(y+x=y)\}\\
+        S^\mbb{N} & = \{(x,y)\in\mbb{N}^2\mid \exists z(0<z\wedge\forall w(w\neq z\wedge 0<w\to z<w \wedge y=x+z))\}
+    \end{align*}
+    onde na última definição $x<y$ é uma abreviação da fórmula utilizada em $<^\mbb{N}$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 3.} Seja $\mf{A}$ um modelo de $\text{Th}(\mf{N}_L)$. Defina em $|\mf{A}|$ a relação de equivalência:
+$$a\sim b\Leftrightarrow(\mathbf{S}^\mf{A})^na=b\text{ ou }(\mathbf{S}^\mf{A})^nb=a\text{ para algum }n\in\mbb{N}$$
+Defina uma relação de ordem $\prec$ em $\bigslant{|\mf{A}|}{\sim}$ como
+$$[a]\prec[b]\text{ sse }a<^\mf{A}b\text{ e }a\nsim b$$
+prove que $\prec$ é uma relação de ordem bem definida.
+\end{shaded}
+
+\begin{proof}
+    Para isso provaremos que $(\bigslant{|\mf{A}|}{\sim},\prec)$ forma uma ordenação linear. Transitividade é garantida pelo fato de que $\prec$ é uma relação de equivalência, assuma que $[a]\prec[b]$, portanto $a<^\mf{A}b$ e $a\nsim b$, logo $b\nless^\mf{A}a$, o que implica que $b\nless^\mf{A}a$ ou $a\sim b$, i.e., $b\nprec a$. Para tricotomia, como $\sim$ é uma relação de equivalência, então $a\sim b$ ou $a\nsim b$, no primeiro caso $[a]=[b]$, no segundo $[a]\neq[b]$, portanto $a,b$ estão em cadeias Z diferentes, logo $a<^\mf{A}b$ ou $b<^\mf{A}a$, i.e., $[a]\prec[b]$ ou $[b]\prec[a]$, o que termina a prova.
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} Utilizando o exercício anterior, como todo modelo de $\mf{N}_A$ é um modelo de $\mf{N}_L$, provaremos a asserção mais forte de que em $\mf{N}_A$ a ordenação linear definida no exercício é densa. Para provarmos isso note que em $\mf{N}_A$ vale $\forall x\exists y((y+y=x)\vee (y+y=Sx))$ (embora seja trivial é fácil mostrar sua validez em $\mf{N}_A$ por eliminação de quantificadores). Portanto, em particular, para $a_1,a_2\in|\mf{A}|$ tq $[a_1]\prec[a_2]$, existe um $b$ tq $b+b=a_1+a_2$ ou $b+b=a_1+a_2+1$, obviamente $b\nsim a_1,a_2$, caso contrário em ambas as equações acima $a_1$ e $a_2$ seriam somas finitas um do outro, portanto estariam na mesma classe de equivalência, contradição, para provarmos que $[a_1]\prec [b]\prec [a_2]$, por dicotomia basta assumir que $[a_1]\nprec[b]$ ou $[b]\nprec[a_2]$, no primeiro caso $b<^\mf{A}a_1$, se $b+b=a_1+a_2$, então $b+b=a_1+a_2<^\mf{A}a_1+b$, i.e., $a_2<^\mf{A}b$, contradição, visto que, como $[b]\prec[a_1]$, por transitividade $[b]\prec[a_2]$, o caso em que $b+b=a_1+a_2+1$ e o segundo caso são análogos.
+
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\begin{shaded}
+\textbf{Exercício 4.} Mostre que $\text{Th}(\mbb{R},<)$ admite eliminação de quantificadores.
+\end{shaded}
+
+\begin{proof}
+    \begin{comment}
+    Devido ao \textbf{Teorema 31F}, basta provarmos que fórmulas da forma $\exists x(\alpha_0\wedge\dots\wedge\alpha_n)$ possuem eliminação de quantificadores, onde cada $\alpha_i$ é um literal. Primeiro podemos remover literais negados, como toda fórmula atômica é da forma $x<t,x=t$, então substitua $\neg(x<t)$ por $t<x\vee t=x$ e $\neg(x=t)$ por $x<t\wedge t<x$, além disso, para toda fórmula da forma $\exists x(\varphi\wedge x=t)$ substitua-a por $\varphi\tfrac{t}{x}$, logo toda fórmula ficará da forma
+    $$\exists x\rp{\bigwedge_{1\leq i\leq n}x<t_i\wedge\bigwedge_{1\leq j\leq m}t_j<x}$$
+    se $n,m\neq0$, basta aplicarmos o método de Fourier-Motzkin para eliminar variáveis, se $n=0$, substitua a fórmula por $x=\max(t_1,\dots,t_m)+1$
+    \end{comment}
+    \textcolor{red}{PENDENTE}
+\end{proof}
+
+\subs{3}{Uma Subteoria da Teoria dos Números}
+
+\begin{shaded}
+\textbf{Exercício 1.} Mostre que $+$ é definível em $(\mbb{N},\cdot,E)$.
+\end{shaded}
+
+\begin{proof}
+    $$+(x,y,z):=\forall w(\neg\forall u(w\cdot u=w)\to wEz=wEx\cdot wEy).$$
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} Prove que para toda sentença $\tau$ livre de quantificadores tq $\vDash_\mf{N}\tau$ temos $A_E\vdash\tau$.
+\end{shaded}
+
+\begin{proof}
+    Sejam $t_1,t_2$ termos sem variáveis livres, o \textbf{Lema 33B} garante que existe um único $n$ tal que $A_E\vdash t=\mathbf{S^n0}$. Sejam $n,m\in\mbb{N}$ tq $A_E\vdash(t_1=\mathbf{S^n0}),(t_2=\mathbf{S^m0})$, uma fórmula atômica $\varphi$ é da forma $t_1=t_2$ ou $t_1<t_2$, no primeiro caso, se $\vDash_\mf{N}t_1=t_2$, então $n=m$ e $A_E\vdash t_1=t_2$ sse $A_E\vdash \mathbf{S^n0}=\mathbf{S^m0}$, i.e., $A_E\vdash n=m$, portanto $A_E\vdash t_1=t_2$, o segundo caso é análogo. Provado para fórmulas sentenciais atômicas é fácil ver que se $\vDash_\mf{N}\tau$ para uma fórmula sentencial $\tau$ qualquer livre de quantificadores, então $A_E\vdash\tau$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 3.} Uma $\{0,S\}$-teoria $T$ é denominada $\omega$-completa sse para toda fórmula $\varphi$ e variável $x$, se $\varphi\tfrac{\mathbf{S^n0}}{x}\in T$, para todo $n\in\mbb{N}$, então $\forall x\varphi\in T$. Mostre que se $T$ é $\omega$-completa e se $A_E\subseteq T$, então $T=\text{Th}(\mf{N})$.
+\end{shaded}
+
+\begin{proof}
+    Defina o rank do quantificador para uma fórmula $\varphi$ ($\text{qr}(\varphi)$) como o número máximo de quantificadores aninhados que ocorrem em $\varphi$:
+    \begin{align*}
+        \text{qr}(\varphi) & := 0,\text{ se }\varphi\text{ é atômica};\\
+        \text{qr}(\neg\varphi) & := \text{qr}(\varphi);\\
+        \text{qr}(\varphi\vee\psi) & := \max\{\text{qr}(\varphi),\text{qr}(\psi)\};\\
+        \text{qr}(\forall x\varphi) & := \text{qr}(\varphi) + 1.
+    \end{align*}
+    Provaremos utilizando indução em $\text{qr}$ de $\varphi$ que se $\vDash_\mf{N}\varphi$, então $\varphi\in T$. O caso em que $\text{qr}(\varphi)=0$ é o exercício anterior, assuma portanto que vale para $\text{qr}(\varphi)=n$, o caso em que $\varphi$ é da forma $\neg\psi$ ou $\psi\vee\chi$ é trivial, seja portanto $\varphi=\forall x\psi$, logo se $\vDash_\mf{N}\forall x\psi$, então $\vDash_\mf{N}\psi\tfrac{m}{x}$, para todo $m\in\mbb{N}$, como $\text{qr}(\psi\tfrac{m}{x})=n$, pela hipótese de indução $\psi\tfrac{m}{x}\in T$, para todo $m\in\mbb{N}$, como $T$ é $\omega$-completo, então $\forall x\psi\in T$, o que termina a prova.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 4.} Mostre que na prova que precede o \textbf{Teorema 33L}, a fórmula $(4)$ é logicamente implicada por $(1),(2)$ e $(3)$.
+\end{shaded}
+
+\begin{proof}
+    Assuma que $\varphi(\mathbf{S^a0},v_2)$, portanto se $\theta_1(\mathbf{S^a0},y_1)$ e $\theta_2(\mathbf{S^a0},y_2)$, então $\psi(y_1,y_2,v_2)$, em particular $(2)$ e $(3)$ garantem que, equivalentemente, $\psi(\mathbf{S^{h_1(a)}0},\mathbf{S^{h_2(a)}0},v_2)$ e $(1)$ garante portanto que $v_2=\mathbf{S^{f(a)}0}$. Analogamente, assuma que $v_2=\mathbf{S^{f(a)}0}$, portanto se $\theta_1(\mathbf{S^a0},y_1)$ e $\theta_2(\mathbf{S^a0},y_2)$, então $(2)$ e $(3)$ garantem que $y_1=\mathbf{S^{h_1(a)}0}$ e $y_2=\mathbf{S^{h_2(a)}0}$, da mesma forma $(1)$ garante que $\psi(\mathbf{S^{h_1(a)}0},\mathbf{S^{h_2(a)}0},v_2)$, i.e., $\psi(y_1,y_2,v_2)$ e, portanto, $\varphi(\mathbf{S^a0},v_2)$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 5.} Mostre que o conjunto de números de sequência (item 10 do catálogo) é representável.
+\end{shaded}
+
+\begin{proof}
+    
+    \textcolor{red}{PENDENTE}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 6.} $3$ é um número de sequência? O que é $\text{lh}(3)$? Encontre $(1*3)*6$ e $1*(3*6)$.
+\end{shaded}
+
+\begin{proof}
+    $3=2^0\cdot3^1$, portanto $3$ teria de representar $\langle-1,0\rangle$, mas como as sequências tem de ser positivas então $3$ não é um número de sequência, por definição $\text{lh}$ pode ser aplicado a $3$, visto que, como $3\neq0$ e $p_0=2\nmid3$, temos $\text{lh}(3)=0$. Logo
+    $$1*3=1\cdot\prod_{i<\text{lh}(3)}p_{i+\text{lh}(1)}^{(3)_i+1}=0$$
+    Como $6=\langle0,0\rangle$, temos
+    $$0*6=\prod_{i<2}p_i^{(6)_i+1}=2^{(6)_0+1}3^{(6)_1+1}$$
+    Por definição $(a)_b:=\mu n[\langle a,b,n\rangle\in R]$, com $(a,b,n)\in R$ sse $a=0$ ou $p_b^{n+2}\nmid a$, visto que $a=6\neq0$, então o menor $n$ tq $p_i^{n+2}\nmid 6$, para $i=0,1$, é, em ambos os casos, $0$, portanto $0*6=2\cdot3=6=\langle0,0\rangle$.\\
+    Para $3*6$, como $\text{lh}(3)=\text{lh}(1)=0$, então $3*6=1*6=6$, portanto $1*6=\langle~\rangle*\langle0,0\rangle=6=\langle0,0\rangle$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 7.} Prove que:\\
+a) $a+1<p_a$;\\
+b) $(b)_k\leq b$; igualdade vale sse $b=0$.\\
+c) $\text{lh}(a)\leq a$; igualdade vale sse $a=0$;\\
+d) $a\upharpoonright i\leq a$;\\
+e) $\text{lh}(a\upharpoonright i)=\min(\text{lh}(a),i)$.
+\end{shaded}
+
+\begin{proof}
+    a) Provaremos por indução em $a$, como caso base se $a=0$, então $0+1=1<p_0=2$, assuma como hipótese indutiva que $n+1<p_n$, sabemos que se $p\neq 2$ é primo, então $p\equiv1(\text{mod }2)$, portanto $p_{n+1}-p_n\geq2$, $n>0$, logo $(n+1)+1<p_n+1<p_n+2\leq p_{n+1}$;
+    
+    b) O caso que $b=0$ é trivial, seja portanto $b=p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_m}^{\beta_m}\neq0$, se $k=\alpha_i$, $1\leq i\leq m$, então $(b)_k=\mu n[p_{\alpha_i}^{n+2}\nmid b]$, i.e., $n+2=\beta_i+1$, logo $n=\beta_i-1$, basta provar que $n<b$, uma vez que o caso em que $k\neq\alpha_i$, $1\leq i\leq m$ é trivial, visto que $n=0<b$. Para provar que $\beta_i-1<b$, assuma que $\alpha_i=0$, logo
+    \begin{align*}
+        b & = p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_m}^{\beta_m}\\
+        & \geq p_0^{\beta_i}\tag{$\alpha_i=0$}\\
+        & = 2^{\beta_i} = (1 + 1)^{\beta_i}\\
+        & \geq 1+\beta_i\tag{Bernoulli}\\
+        & > \beta_i-1
+    \end{align*}
+    onde (Bernoulli) refere-se a Desigualdade de Bernoulli: $(1+x)^n\geq 1+nx$, para $x>-1$ e $n\in\mbb{N}$. Seja agora $\alpha_i>0$, logo
+    \begin{align*}
+        b & = p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_m}^{\beta_m}\\
+        & > (\alpha_1+1)^{\beta_1}\cdot...\cdot (\alpha_m+1)^{\beta_m}\tag{$n+1<p_n$}\\
+        & \geq (\alpha_1\beta_1+1)\cdot...\cdot(\alpha_m\beta_m+1)\tag{Bernoulli}\\
+        & > \alpha_i\beta_i+1\\
+        & \geq \beta_i+1\tag{$\alpha_i>0$}\\
+        & > \beta_i+1
+    \end{align*}
+    c) Os casos que $a=0, 1$ são triviais, visto que $\text{lh}(a)=0$. Seja portanto $a=p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_n}^{\beta_n}>1$, com $\alpha_1<\dots<\alpha_n$. Como todos os $\alpha_i$ são consecutivos, então $\text{lh}(a)=\beta_m+1$, $1\leq m\leq n$, logo basta utilizar o mesmo argumento que em b);
+
+    d) Da mesma forma que os anteriores o caso em que $a=0$ é trivial, visto que $a\upharpoonright i=0$. Seja portanto $a=p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_m}^{\beta_m}>0$, logo $a\upharpoonright i=p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_{i-1}}^{\beta_{i-1}}\leq a$;
+
+    e) Seja $a=p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_m}^{\beta_m}$, se $0\leq i\leq m+1$, então $\text{lh}(a\upharpoonright i)=\text{lh}(p_{\alpha_1}^{\beta_1}\cdot...\cdot p_{\alpha_{i-1}}^{\beta_{i-1}})=i$, caso $i>m$, então $\text{lh}(a\upharpoonright i)=m+1$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 8.} Sejam $g$ e $h$ funções representáveis, e assuma que
+\begin{align*}
+    f(0,b) & = g(b);\\
+    f(a+1,b) & = h(f(a,b),a,b).
+\end{align*}
+Mostre que $f$ é representável.
+\end{shaded}
+
+\begin{proof}
+    \textcolor{red}{PENDENTE}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 9.} Mostre que existe uma função representável $f$ tq para todo $n,a_0,\dots,a_n$,
+$$f(\langle a_0,\dots,a_n\rangle)=a_n.$$
+\end{shaded}
+
+\begin{proof}
+    Basta tomar
+    $$f(a):=\mu n\left[a=0\vee p_{\text{lh}(a)-1}^{n+1}\nmid a\right]$$
+    ou, mais formalmente, seja $R=\{\langle a,n\rangle\mid a=0\vee p^{n+1}_{\text{lh}(a)-1}\nmid a\}$, portanto
+    $$f(a)=\mu n\left[K_{\overline{R}}(a,n)=0\right]$$
+    onde $\overline{R}$ é o complemento de $R$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 10.} Seja $R$ uma relação representável e $g,h$ funções representáveis, prove que
+$$f(\vec{a})=
+\begin{cases}
+g(\vec{a})\text{, se }\vec{a}\in R;\\
+h(\vec{a})\text{, se }\vec{a}\notin R.
+\end{cases}$$
+é representável.
+\end{shaded}
+
+\begin{proof}
+    \textcolor{red}{PENDENTE}
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 11.} (Recursão Monótona) Seja $R$ uma relação binária representável em $\mbb{N}$. Seja $C$ o menor subconjunto de $\mbb{N}$ tq para todo $n,a_0,\dots,a_{n-1},b$,
+$$(\langle a_0,\dots,a_{n-1}\rangle,b)\in R\text{ e }a_i\in C,~\forall i<n\Rightarrow b\in C.$$
+Assuma também que: $(1)$, para todo $n,a_0,\dots,a_{n-1},b$,
+$$(\langle a_0,\dots,a_{n-1}\rangle,b)\in R\Rightarrow a_i<b,~\forall i<n$$
+e $(2)$, existe uma função representável $f$ tq para todo $n,a_0,\dots,a_{n-1},b$,
+$$(\langle a_0,\dots,a_{n-1}\rangle,b)\in R\Rightarrow n<f(b)$$
+Mostre que $C$ é representável.
+\end{shaded}
+
+\begin{proof}
+    \textcolor{red}{PENDENTE}
+\end{proof}
+
+\subs{4}{Aritmetização da Sintaxe}
+
+\textcolor{red}{PENDENTE}
+
+\subs{5}{Incompletude e Indecidibilidade}
+
+\begin{shaded}
+\textbf{Exercício 1.} Mostre que não existe $R$ recursivo tq $\#\text{Cn}(A_E)\subseteq R$ e $\#\{\sigma\mid\neg\sigma\in\text{Cn}(A_E)\}\subseteq\overline{R}$.
+\end{shaded}
+
+\begin{proof}
+    Como $R$ é recursivo sse $R$ é representável em $\text{Cn}(A_E)$, então existe $\beta\in\mc{L}_1^mc{S}$ que representa $R$, pelo \textbf{Teorema do Ponto Fixo} existe $\sigma\in\mc{L}_0^\mc{S}$ tq $A_E\vdash(\sigma\leftrightarrow\neg\beta(\mathbf{S^{\#\sigma}0}))$. Assuma por contradição que $R$ satisfaz as hipóteses do enunciado, então
+    \begin{align*}
+        \#\sigma\notin R & \Leftrightarrow A_E\vdash\neg\beta(\mathbf{S^{\#\sigma}0})\\
+        & \Leftrightarrow A_E\vdash\sigma\\
+        & \Leftrightarrow \sigma\in\text{Cn}(A_E)\\
+        & \Leftrightarrow \#\sigma\in\#\text{Cn}(A_E)\\
+        & \Leftrightarrow \#\sigma\in R
+    \end{align*}
+    Contradição, entretanto
+    \begin{align*}
+        \#\sigma\in R & \Leftrightarrow A_E\vdash\beta(\mathbf{S^{\#\sigma}0})\\
+        & \Leftrightarrow A_E\vdash\neg\sigma\\
+        & \Leftrightarrow \neg\sigma\in\text{Cn}(A_E)\\
+        & \Leftrightarrow \#\sigma\in\overline{R}\\
+        & \Leftrightarrow \#\sigma\notin R
+    \end{align*}
+    Contradição, portanto não existe tal $R$.
+\end{proof}
+
+\begin{shaded}
+\textbf{Exercício 2.} Seja $A\subseteq\mc{L}_0^\mc{S}$ recursivo, com $\mathbf{S},\mathbf{0}\in\mc{S}$, e assuma que toda relação recursiva é representável em $\text{Cn}(A)$ e que $A$ é $\omega$-consistente, i.e., não existe $\varphi$ tq $A\vdash\exists x\varphi(x)$ e para todo $a\in\mbb{N}$, $A\vdash\neg\varphi(\mathbf{S^a0})$. Prove que $\text{Cn}(A)$ é incompleta.
+\end{shaded}
+
+\begin{proof}
+    Como $A$ é recursivo, então $\text{Cn}(A)$ é axiomatizável, assuma por contradição que $\text{Cn}(A)$ é completa, portanto $\text{Cn}(A)$ é decidível, uma vez que $A$ permite representação, então $\text{Cn}(A)$ $(\#\text{Cn}(A))$ é representável em $\text{Cn}(A)$ por uma fórmula $\chi(v_0)$, note que a prova do \textbf{Teorema do Ponto Fixo} não utiliza nada além do fato de que $A$ permite representação, portanto para todo $\beta\in\mc{L}_1^\mc{S}$, existe um $\sigma\in\mc{L}_0^\mc{S}$ tq $A\vdash(\sigma\leftrightarrow\beta(\mathbf{S^{\#\sigma}0}))$. Dessa forma, o \textbf{Lema do Ponto Fixo} garante que existe $\sigma\in\mc{L}_0^\mc{S}$ tq $A\vdash(\sigma\leftrightarrow\neg\chi(\mathbf{S^{\#\sigma}0}))$. Se $A\vdash\sigma$, pela fórmula anterior $A\vdash\neg\chi(\mathbf{S^{\#\sigma}0})$, mas como $A$ prova $\sigma$, então $\#\sigma\in\#\text{Cn}(A)$, i.e., $A\vdash\chi(\mathbf{S^{\#\sigma}0})$, contradizendo a consistência de $A$. Analogamente, assuma que $A\vdash\neg\sigma$
+    \\\textcolor{red}{PENDENTE}
+\end{proof}
+
+\colorlet{shadecolor}{blue!15}
+\begin{shaded}
+\textbf{Obs.} Note que essa é uma versão em certo sentido mais forte dos teoremas apresentados no livro, em particular ela garante que o \textbf{Teorema do Ponto Fixo}, o \textbf{Teorema da Indefinibilidade de Tarski} e o \textbf{Primeiro Teorema da Incompletude} podem ser provados sem que $\vDash_\mf{N}A$ e $A_E\subseteq A$. Em particular, 
+\end{shaded}
+\colorlet{shadecolor}{orange!15}
+
+\end{document}
